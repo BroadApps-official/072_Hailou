@@ -82,7 +82,6 @@
 		E75E7D002D4ABFAE00F293F1 /* UIImageExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtention.swift; sourceTree = "<group>"; };
 		E75E7D042D4D2D0300F293F1 /* ArrayExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtention.swift; sourceTree = "<group>"; };
 		E7638B112D6F49A900F16812 /* SFRestrorePurchaseLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFRestrorePurchaseLabel.swift; sourceTree = "<group>"; };
-		E76623BC2C1486F7006728A7 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		E772CA032D923A6500BAD6AF /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E772CA072D923A8300BAD6AF /* RateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateView.swift; sourceTree = "<group>"; };
 		E772CA092D923A9700BAD6AF /* ActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
@@ -234,7 +233,6 @@
 		E759BEEF2C1480C000FC2CCB /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				E76623BC2C1486F7006728A7 /* R.generated.swift */,
 				E7B113952C1495E100E96820 /* Sources.swift */,
 			);
 			path = Utils;
