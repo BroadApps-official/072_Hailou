@@ -13,7 +13,7 @@
 		E73F6A562D9AF3AA004FAB43 /* GenerationTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73F6A552D9AF3AA004FAB43 /* GenerationTimeViewController.swift */; };
 		E73F6A5A2D9AF42D004FAB43 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = E73F6A592D9AF42D004FAB43 /* Lottie */; };
 		E73F6A5D2D9AF4F3004FAB43 /* LottieAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = E73F6A5C2D9AF4F3004FAB43 /* LottieAnimation.json */; };
-		E73F6A642D9C2EDA004FAB43 /* RswiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = E73F6A632D9C2EDA004FAB43 /* RswiftLibrary */; };
+		E73F6A682D9C2FC7004FAB43 /* RswiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = E73F6A672D9C2FC7004FAB43 /* RswiftLibrary */; };
 		E73FD54F2CCA68E200F7C940 /* UIFontExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73FD54E2CCA68E200F7C940 /* UIFontExtention.swift */; };
 		E73FD5522CCAA1CD00F7C940 /* SubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73FD5512CCAA1CD00F7C940 /* SubscriptionViewController.swift */; };
 		E73FD5572CCAC2E900F7C940 /* UnrealView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73FD5562CCAC2E900F7C940 /* UnrealView.swift */; };
@@ -121,7 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E73F6A642D9C2EDA004FAB43 /* RswiftLibrary in Frameworks */,
+				E73F6A682D9C2FC7004FAB43 /* RswiftLibrary in Frameworks */,
 				E73F6A5A2D9AF42D004FAB43 /* Lottie in Frameworks */,
 				E75E7D0D2D50C67A00F293F1 /* ApphudSDK in Frameworks */,
 				E75E7D0A2D50C66B00F293F1 /* SnapKit in Frameworks */,
@@ -168,6 +168,13 @@
 			path = Animation;
 			sourceTree = "<group>";
 		};
+		E73F6A662D9C2FBA004FAB43 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E73FD5502CCA8C4200F7C940 /* Subscription */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +206,7 @@
 				E7B1139B2C14AE9300E96820 /* Extentions */,
 				E759BEEF2C1480C000FC2CCB /* Utils */,
 				E759BED82C1478D500FC2CCB /* Products */,
+				E73F6A662D9C2FBA004FAB43 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -419,7 +427,7 @@
 				E75E7D0C2D50C67A00F293F1 /* ApphudSDK */,
 				E772CA122D93217400BAD6AF /* Disk */,
 				E73F6A592D9AF42D004FAB43 /* Lottie */,
-				E73F6A632D9C2EDA004FAB43 /* RswiftLibrary */,
+				E73F6A672D9C2FC7004FAB43 /* RswiftLibrary */,
 			);
 			productName = SportCoach;
 			productReference = E759BED72C1478D500FC2CCB /* Hailuo.app */;
@@ -819,7 +827,7 @@
 			package = E73F6A582D9AF42D004FAB43 /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
 		};
-		E73F6A632D9C2EDA004FAB43 /* RswiftLibrary */ = {
+		E73F6A672D9C2FC7004FAB43 /* RswiftLibrary */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E73F6A622D9C2EDA004FAB43 /* XCRemoteSwiftPackageReference "R" */;
 			productName = RswiftLibrary;
