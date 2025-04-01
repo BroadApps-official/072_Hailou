@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		E7011C372C1C8AA400B3A4D7 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7011C362C1C8AA400B3A4D7 /* UIDevice.swift */; };
-		E70B0CED2D6DF70700530DD0 /* RswiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = E70B0CEC2D6DF70700530DD0 /* RswiftLibrary */; };
 		E70B0D072D6DFD3A00530DD0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E70B0D062D6DFD3A00530DD0 /* Localizable.strings */; };
 		E71D00752CE3676C0011C8AF /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71D00742CE3676C0011C8AF /* PurchaseManager.swift */; };
 		E73F6A562D9AF3AA004FAB43 /* GenerationTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73F6A552D9AF3AA004FAB43 /* GenerationTimeViewController.swift */; };
 		E73F6A5A2D9AF42D004FAB43 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = E73F6A592D9AF42D004FAB43 /* Lottie */; };
 		E73F6A5D2D9AF4F3004FAB43 /* LottieAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = E73F6A5C2D9AF4F3004FAB43 /* LottieAnimation.json */; };
+		E73F6A642D9C2EDA004FAB43 /* RswiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = E73F6A632D9C2EDA004FAB43 /* RswiftLibrary */; };
 		E73FD54F2CCA68E200F7C940 /* UIFontExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73FD54E2CCA68E200F7C940 /* UIFontExtention.swift */; };
 		E73FD5522CCAA1CD00F7C940 /* SubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73FD5512CCAA1CD00F7C940 /* SubscriptionViewController.swift */; };
 		E73FD5572CCAC2E900F7C940 /* UnrealView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73FD5562CCAC2E900F7C940 /* UnrealView.swift */; };
@@ -121,9 +121,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E73F6A642D9C2EDA004FAB43 /* RswiftLibrary in Frameworks */,
 				E73F6A5A2D9AF42D004FAB43 /* Lottie in Frameworks */,
 				E75E7D0D2D50C67A00F293F1 /* ApphudSDK in Frameworks */,
-				E70B0CED2D6DF70700530DD0 /* RswiftLibrary in Frameworks */,
 				E75E7D0A2D50C66B00F293F1 /* SnapKit in Frameworks */,
 				E772CA132D93217400BAD6AF /* Disk in Frameworks */,
 			);
@@ -417,9 +417,9 @@
 			packageProductDependencies = (
 				E75E7D092D50C66B00F293F1 /* SnapKit */,
 				E75E7D0C2D50C67A00F293F1 /* ApphudSDK */,
-				E70B0CEC2D6DF70700530DD0 /* RswiftLibrary */,
 				E772CA122D93217400BAD6AF /* Disk */,
 				E73F6A592D9AF42D004FAB43 /* Lottie */,
+				E73F6A632D9C2EDA004FAB43 /* RswiftLibrary */,
 			);
 			productName = SportCoach;
 			productReference = E759BED72C1478D500FC2CCB /* Hailuo.app */;
@@ -452,9 +452,9 @@
 			packageReferences = (
 				E75E7D082D50C66B00F293F1 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				E75E7D0B2D50C67A00F293F1 /* XCRemoteSwiftPackageReference "ApphudSDK" */,
-				E70B0CEB2D6DF70700530DD0 /* XCRemoteSwiftPackageReference "R" */,
 				E772CA112D93217300BAD6AF /* XCRemoteSwiftPackageReference "Disk" */,
 				E73F6A582D9AF42D004FAB43 /* XCRemoteSwiftPackageReference "lottie-spm" */,
+				E73F6A622D9C2EDA004FAB43 /* XCRemoteSwiftPackageReference "R" */,
 			);
 			productRefGroup = E759BED82C1478D500FC2CCB /* Products */;
 			projectDirPath = "";
@@ -774,6 +774,14 @@
 				minimumVersion = 4.5.1;
 			};
 		};
+		E73F6A622D9C2EDA004FAB43 /* XCRemoteSwiftPackageReference "R" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mac-cain13/R.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.8.0;
+			};
+		};
 		E75E7D082D50C66B00F293F1 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -801,11 +809,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E70B0CEC2D6DF70700530DD0 /* RswiftLibrary */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E70B0CEB2D6DF70700530DD0 /* XCRemoteSwiftPackageReference "R" */;
-			productName = RswiftLibrary;
-		};
 		E70B0D0C2D6DFDF700530DD0 /* RswiftGenerateInternalResources */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E70B0CEB2D6DF70700530DD0 /* XCRemoteSwiftPackageReference "R" */;
@@ -815,6 +818,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E73F6A582D9AF42D004FAB43 /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
+		};
+		E73F6A632D9C2EDA004FAB43 /* RswiftLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E73F6A622D9C2EDA004FAB43 /* XCRemoteSwiftPackageReference "R" */;
+			productName = RswiftLibrary;
 		};
 		E75E7D092D50C66B00F293F1 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
