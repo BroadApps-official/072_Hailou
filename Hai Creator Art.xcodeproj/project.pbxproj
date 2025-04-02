@@ -73,7 +73,7 @@
 		E73FD5562CCAC2E900F7C940 /* UnrealView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnrealView.swift; sourceTree = "<group>"; };
 		E73FD5582CCAFAD700F7C940 /* SFPrivacyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFPrivacyLabel.swift; sourceTree = "<group>"; };
 		E73FD55A2CCAFE3D00F7C940 /* SFTermsOfUse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFTermsOfUse.swift; sourceTree = "<group>"; };
-		E759BED72C1478D500FC2CCB /* Hailuo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hailuo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E759BED72C1478D500FC2CCB /* Hai Creator Art.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hai Creator Art.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E759BEDA2C1478D500FC2CCB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E759BEDC2C1478D500FC2CCB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E759BEE32C1478D600FC2CCB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -198,7 +198,7 @@
 		E759BECE2C1478D500FC2CCB = {
 			isa = PBXGroup;
 			children = (
-				E759BED92C1478D500FC2CCB /* Hailuo */,
+				E759BED92C1478D500FC2CCB /* Hai Creator Art */,
 				E7B114232C19D12000E96820 /* Helpers */,
 				E71D003D2CDA5E970011C8AF /* Network */,
 				E71D00692CE3618F0011C8AF /* PaymentConfiguration */,
@@ -212,12 +212,12 @@
 		E759BED82C1478D500FC2CCB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E759BED72C1478D500FC2CCB /* Hailuo.app */,
+				E759BED72C1478D500FC2CCB /* Hai Creator Art.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E759BED92C1478D500FC2CCB /* Hailuo */ = {
+		E759BED92C1478D500FC2CCB /* Hai Creator Art */ = {
 			isa = PBXGroup;
 			children = (
 				E7B113A62C14B00E00E96820 /* Controllers */,
@@ -227,7 +227,7 @@
 				E759BEE32C1478D600FC2CCB /* Assets.xcassets */,
 				E70B0D062D6DFD3A00530DD0 /* Localizable.strings */,
 			);
-			path = Hailuo;
+			path = "Hai Creator Art";
 			sourceTree = "<group>";
 		};
 		E759BEEF2C1480C000FC2CCB /* Utils */ = {
@@ -406,9 +406,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E759BED62C1478D500FC2CCB /* Hailuo */ = {
+		E759BED62C1478D500FC2CCB /* Hai Creator Art */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E759BEEB2C1478D600FC2CCB /* Build configuration list for PBXNativeTarget "Hailuo" */;
+			buildConfigurationList = E759BEEB2C1478D600FC2CCB /* Build configuration list for PBXNativeTarget "Hai Creator Art" */;
 			buildPhases = (
 				E759BED32C1478D500FC2CCB /* Sources */,
 				E759BED42C1478D500FC2CCB /* Frameworks */,
@@ -419,7 +419,7 @@
 			dependencies = (
 				E70B0D0D2D6DFDF700530DD0 /* PBXTargetDependency */,
 			);
-			name = Hailuo;
+			name = "Hai Creator Art";
 			packageProductDependencies = (
 				E75E7D092D50C66B00F293F1 /* SnapKit */,
 				E75E7D0C2D50C67A00F293F1 /* ApphudSDK */,
@@ -428,7 +428,7 @@
 				E73F6A672D9C2FC7004FAB43 /* RswiftLibrary */,
 			);
 			productName = SportCoach;
-			productReference = E759BED72C1478D500FC2CCB /* Hailuo.app */;
+			productReference = E759BED72C1478D500FC2CCB /* Hai Creator Art.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -466,7 +466,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E759BED62C1478D500FC2CCB /* Hailuo */,
+				E759BED62C1478D500FC2CCB /* Hai Creator Art */,
 			);
 		};
 /* End PBXProject section */
@@ -675,8 +675,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Hailuo/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to take a photo";
+				INFOPLIST_FILE = "Hai Creator Art/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to the camera to allow you to take photos and upload them for creating videos with special effects";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to save photos to your library";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to select images";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "We use your data to deliver personalized ads and improve our service";
@@ -712,8 +712,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Hailuo/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to take a photo";
+				INFOPLIST_FILE = "Hai Creator Art/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to the camera to allow you to take photos and upload them for creating videos with special effects";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to save photos to your library";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to select images";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "We use your data to deliver personalized ads and improve our service";
@@ -752,7 +752,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E759BEEB2C1478D600FC2CCB /* Build configuration list for PBXNativeTarget "Hailuo" */ = {
+		E759BEEB2C1478D600FC2CCB /* Build configuration list for PBXNativeTarget "Hai Creator Art" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E759BEEC2C1478D600FC2CCB /* Debug */,

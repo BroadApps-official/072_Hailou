@@ -7,7 +7,7 @@ enum VideoSource: String, Codable {
     case api2
 }
 
-struct Filter: Codable {
+struct Filter: Codable, Equatable {
     let id: Int
     let title: String
     var preview: String
@@ -82,15 +82,62 @@ final class NetworkService {
 
     private let filtersBaseURL = "https://futuretechapps.shop/filters"
     private let generateBaseURL = "https://futuretechapps.shop/generate"
-    private let appId = Bundle.main.bundleIdentifier ?? "com.test.test"
+    private let appId = "com.test.test"
     private let token = "0e9560af-ab3c-4480-8930-5b6c76b03eea"
     
     private let promptURL = URL(string: "https://backend.viewprotech.shop")!
     private let promptToken = "bb05e887-82a8-4801-b09f-2b8d10dca121"
 
     func fetchFilters() async throws -> [Filter] {
-        if let cachedFilters = CacheManager.shared.loadFiltersFromCache() {
-            return cachedFilters
+        if let cachedFilters = CacheManager.shared.loadFiltersFromCache(), !cachedFilters.isEmpty {
+            guard var urlComponents = URLComponents(string: filtersBaseURL) else {
+                throw URLError(.badURL)
+            }
+
+            let userId = await Apphud.userID()
+            
+            urlComponents.queryItems = [
+                URLQueryItem(name: "appId", value: appId),
+                URLQueryItem(name: "userId", value: userId)
+            ]
+
+            guard let url = urlComponents.url else {
+                throw URLError(.badURL)
+            }
+
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+            request.setValue("application/json", forHTTPHeaderField: "Accept")
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+
+            let (data, response) = try await URLSession.shared.data(for: request)
+
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("Error: Failed to get HTTP response")
+                throw URLError(.badServerResponse)
+            }
+
+            if httpResponse.statusCode != 200 {
+                let responseString = String(data: data, encoding: .utf8) ?? "No data"
+                print("Error: Server returned status \(httpResponse.statusCode), response: \(responseString)")
+                throw URLError(.badServerResponse)
+            }
+
+            let filtersResponse = try JSONDecoder().decode(FiltersResponse.self, from: data)
+            print("Received raw data: \(String(data: data, encoding: .utf8) ?? "failed to convert to string")")
+            
+            if filtersResponse.error {
+                throw NSError(domain: "APIError", code: 1, userInfo: [NSLocalizedDescriptionKey: filtersResponse.messages.joined(separator: ", ")])
+            }
+
+            let updatedFilters = try await fetchAndUpdateFilters(cachedFilters: cachedFilters, serverFilters: filtersResponse.data)
+            
+            if updatedFilters != cachedFilters {
+                CacheManager.shared.saveFiltersToCache(filters: updatedFilters)
+                print("Filters updated and saved to cache.")
+            }
+
+            return updatedFilters
         }
 
         guard var urlComponents = URLComponents(string: filtersBaseURL) else {
@@ -116,12 +163,12 @@ final class NetworkService {
         let (data, response) = try await URLSession.shared.data(for: request)
 
         guard let httpResponse = response as? HTTPURLResponse else {
-            print("Error: Failed to get HTTP respons")
+            print("Error: Failed to get HTTP response")
             throw URLError(.badServerResponse)
         }
 
         if httpResponse.statusCode != 200 {
-            let responseString = String(data: data, encoding: .utf8) ?? "Нет данных"
+            let responseString = String(data: data, encoding: .utf8) ?? "No data"
             print("Error: Server returned status \(httpResponse.statusCode), response: \(responseString)")
             throw URLError(.badServerResponse)
         }
@@ -133,11 +180,25 @@ final class NetworkService {
             throw NSError(domain: "APIError", code: 1, userInfo: [NSLocalizedDescriptionKey: filtersResponse.messages.joined(separator: ", ")])
         }
 
-        CacheManager.shared.saveFiltersToCache(filters: filtersResponse.data)
-        let updatedFilters = await withTaskGroup(of: Filter?.self) { group in
+        let filters = try await fetchAndUpdateFilters(cachedFilters: [], serverFilters: filtersResponse.data)
+        CacheManager.shared.saveFiltersToCache(filters: filters)
+        return filters
+    }
+
+    private func fetchAndUpdateFilters(cachedFilters: [Filter], serverFilters: [Filter] = []) async throws -> [Filter] {
+        var updatedFilters = [Filter]()
+
+        let serverFilterIDs = Set(serverFilters.map { $0.id })
+        updatedFilters = cachedFilters.filter { serverFilterIDs.contains($0.id) }
+
+        let newFilters = serverFilters.filter { filter in
+            !cachedFilters.contains { $0.id == filter.id }
+        }
+
+        let updatedFiltersWithVideos = await withTaskGroup(of: Filter?.self) { group in
             var tempFilters: [Filter] = []
 
-            for filter in filtersResponse.data {
+            for filter in newFilters {
                 group.addTask {
                     var updatedFilter = filter
 
@@ -165,7 +226,7 @@ final class NetworkService {
             return tempFilters
         }
 
-        CacheManager.shared.saveFiltersToCache(filters: updatedFilters)
+        updatedFilters.append(contentsOf: updatedFiltersWithVideos)
         return updatedFilters
     }
 

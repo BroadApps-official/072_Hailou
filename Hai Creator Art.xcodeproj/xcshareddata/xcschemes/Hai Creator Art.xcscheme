@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E759BED62C1478D500FC2CCB"
-               BuildableName = "Hailuo.app"
-               BlueprintName = "Hailuo"
+               BuildableName = "Hai Creator Art.app"
+               BlueprintName = "Hai Creator Art"
                ReferencedContainer = "container:Hai Creator Art.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,8 +44,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E759BED62C1478D500FC2CCB"
-            BuildableName = "Hailuo.app"
-            BlueprintName = "Hailuo"
+            BuildableName = "Hai Creator Art.app"
+            BlueprintName = "Hai Creator Art"
             ReferencedContainer = "container:Hai Creator Art.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -61,8 +61,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E759BED62C1478D500FC2CCB"
-            BuildableName = "Hailuo.app"
-            BlueprintName = "Hailuo"
+            BuildableName = "Hai Creator Art.app"
+            BlueprintName = "Hai Creator Art"
             ReferencedContainer = "container:Hai Creator Art.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

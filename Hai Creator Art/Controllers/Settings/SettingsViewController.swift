@@ -304,7 +304,7 @@ final class SettingsViewController: UIViewController {
 extension SettingsViewController: RateViewDelegate {
     func tapRateView() {
         DispatchQueue.main.async {
-            guard let url = URL(string: "itms-apps://itunes.apple.com/app/id6738688866?action=write-review") else {
+            guard let url = URL(string: "itms-apps://itunes.apple.com/app/id6743743577?action=write-review") else {
                 return
             }
 
