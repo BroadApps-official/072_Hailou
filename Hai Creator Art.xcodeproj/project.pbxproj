@@ -446,7 +446,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E759BED22C1478D500FC2CCB /* Build configuration list for PBXProject "Hailuo" */;
+			buildConfigurationList = E759BED22C1478D500FC2CCB /* Build configuration list for PBXProject "Hai Creator Art" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -743,7 +743,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E759BED22C1478D500FC2CCB /* Build configuration list for PBXProject "Hailuo" */ = {
+		E759BED22C1478D500FC2CCB /* Build configuration list for PBXProject "Hai Creator Art" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E759BEE92C1478D600FC2CCB /* Debug */,

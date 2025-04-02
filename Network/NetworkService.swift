@@ -125,8 +125,6 @@ final class NetworkService {
             print("Error: Server returned status \(httpResponse.statusCode), response: \(responseString)")
             throw URLError(.badServerResponse)
         }
-        
-        print("📦 Получены сырые данные: \(String(data: data, encoding: .utf8) ?? "не удалось преобразовать в строку")")
 
         let filtersResponse = try JSONDecoder().decode(FiltersResponse.self, from: data)
         print("Received raw data: \(String(data: data, encoding: .utf8) ?? "failed to convert to string")")
@@ -151,7 +149,7 @@ final class NetworkService {
                         let videoPath = try CacheManager.shared.saveVideoToCache(videoData: videoData, fileName: videoFileName)
                         updatedFilter.preview = videoPath
                     } catch {
-                        print("🔴 Error loading video for filter \(updatedFilter.id): \(error.localizedDescription)")
+                        print("Error loading video for filter \(updatedFilter.id): \(error.localizedDescription)")
                     }
 
                     return updatedFilter
