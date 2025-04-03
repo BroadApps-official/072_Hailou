@@ -68,8 +68,7 @@ final class ResultViewController: UIViewController {
         drawSelf()
         NotificationCenter.default.addObserver(self, selector: #selector(didFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: player?.currentItem)
 
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(saveButtonTapped))
-        saveButton.addGestureRecognizer(tapGesture)
+        addTapGesture(to: saveButton, action: #selector(saveButtonTapped))
         promptView.delegate = self
     }
 
@@ -97,7 +96,7 @@ final class ResultViewController: UIViewController {
             make.addTarget(self, action: #selector(didTapPlayButton), for: .touchUpInside)
         }
 
-        guard let videoURL = CacheManager.shared.getVideo(for: model) else {
+        guard let videoURL = StorageManager.shared.getVideo(for: model) else {
             print("Video is not in cache")
             return
         }
@@ -123,9 +122,8 @@ final class ResultViewController: UIViewController {
             playerVC.view.layer.masksToBounds = true
             playerVC.didMove(toParent: self)
             playerVC.showsPlaybackControls = false
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapPlayButton))
-            playerVC.view.addGestureRecognizer(tapGesture)
             playerVC.view.isUserInteractionEnabled = true
+            addTapGesture(to: playerViewController!.view, action: #selector(didTapPlayButton))
 
             view.addSubview(saveButton)
             view.bringSubviewToFront(saveButton)
@@ -265,12 +263,12 @@ final class ResultViewController: UIViewController {
     }
 
     @objc private func saveButtonTapped() {
-        guard let videoURL = CacheManager.shared.getVideo(for: model) else {
+        guard let videoURL = StorageManager.shared.getVideo(for: model) else {
             videoGalleryErrorAlert()
             return
         }
 
-        CacheManager.shared.saveVideoToGallery(videoURL: videoURL) { success in
+        StorageManager.shared.saveVideoToGallery(videoURL: videoURL) { success in
             DispatchQueue.main.async {
                 if success {
                     self.videoGallerySuccessAlert()
@@ -282,7 +280,7 @@ final class ResultViewController: UIViewController {
     }
 
     private func shareVideo() {
-        guard let videoURL = CacheManager.shared.getVideo(for: model) else {
+        guard let videoURL = StorageManager.shared.getVideo(for: model) else {
             print("Video doesn't exist.")
             return
         }
@@ -296,7 +294,7 @@ final class ResultViewController: UIViewController {
     }
 
     private func saveToFiles() {
-        guard let videoURL = CacheManager.shared.getVideo(for: model) else {
+        guard let videoURL = StorageManager.shared.getVideo(for: model) else {
             videoFilesErrorAlert()
             return
         }
@@ -323,23 +321,14 @@ final class ResultViewController: UIViewController {
     }
 
     @objc private func deleteVideo() {
-        let alert = UIAlertController(title: L.deleteVideo(),
-                                      message: L.deleteVideoMessage(),
-                                      preferredStyle: .actionSheet)
-
-        let deleteAction = UIAlertAction(title: L.delete(), style: .destructive) { _ in
-            CacheManager.shared.deleteVideoModel(self.model)
-            self.dismiss(animated: true, completion: nil)
-        }
-
-        let cancelAction = UIAlertAction(title: L.cancel(), style: .cancel) { _ in
-            print("Video deletion was cancelled.")
-        }
-
-        alert.addAction(deleteAction)
-        alert.addAction(cancelAction)
-        alert.overrideUserInterfaceStyle = .dark
-        present(alert, animated: true)
+        showAlert(
+            title: L.deleteVideo(),
+            message: L.deleteVideoMessage(),
+            actionTitles: [L.delete(), L.cancel()],
+            actions: [
+                { StorageManager.shared.deleteVideoModel(self.model); self.dismiss(animated: true, completion: nil) }
+            ]
+        )
     }
 }
 
@@ -357,55 +346,37 @@ extension ResultViewController: UIDocumentPickerDelegate {
 // MARK: - Alerts
 extension ResultViewController {
     private func videoGallerySuccessAlert() {
-        let alert = UIAlertController(title: L.videoSavedGallery(),
-                                      message: nil,
-                                      preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default)
-        alert.addAction(okAction)
-        alert.overrideUserInterfaceStyle = .dark
-        present(alert, animated: true)
+        showAlert(
+            title: L.videoSavedGallery(),
+            message: nil,
+            actionTitles: ["OK"],
+            actions: [nil]
+        )
     }
 
     private func videoGalleryErrorAlert() {
-        let alert = UIAlertController(title: L.errorVideoGallery(),
-                                      message: L.errorVideoGalleryMessage(),
-                                      preferredStyle: .alert)
-
-        let cancelAction = UIAlertAction(title: L.cancel(), style: .cancel)
-        let tryAgainAction = UIAlertAction(title: L.tryAgain(), style: .default) { _ in
-            self.saveButtonTapped()
-        }
-
-        alert.addAction(cancelAction)
-        alert.addAction(tryAgainAction)
-        alert.overrideUserInterfaceStyle = .dark
-        present(alert, animated: true)
+        showAlert(
+            title: L.errorVideoGallery(),
+            message: L.errorVideoGalleryMessage(),
+            actionTitles: [L.cancel(), L.tryAgain()],
+            actions: [{self.saveButtonTapped()}])
     }
 
     private func videoFilesSuccessAlert() {
-        let alert = UIAlertController(title: L.videoSavedFiles(),
-                                      message: nil,
-                                      preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default)
-        alert.addAction(okAction)
-        alert.overrideUserInterfaceStyle = .dark
-        present(alert, animated: true)
+        showAlert(
+            title: L.videoSavedFiles(),
+            message: nil,
+            actionTitles: ["OK"],
+            actions: [nil]
+        )
     }
 
     private func videoFilesErrorAlert() {
-        let alert = UIAlertController(title: L.errorVideoFiles(),
-                                      message: L.errorVideoGalleryMessage(),
-                                      preferredStyle: .alert)
-
-        let cancelAction = UIAlertAction(title: L.cancel(), style: .cancel)
-        let tryAgainAction = UIAlertAction(title: L.tryAgain(), style: .default) { _ in
-            self.saveToFiles()
-        }
-
-        alert.addAction(cancelAction)
-        alert.addAction(tryAgainAction)
-        alert.overrideUserInterfaceStyle = .dark
-        present(alert, animated: true)
+        showAlert(
+            title: L.errorVideoFiles(),
+            message: L.errorVideoGalleryMessage(),
+            actionTitles: [L.cancel(), L.tryAgain()],
+            actions: [{self.saveToFiles()}])
     }
 }
 
@@ -415,13 +386,34 @@ extension ResultViewController: TextViewDelegate {
     }
 
     func didTapCopyButton() {
-        let alert = UIAlertController(
+        showAlert(
             title: L.textCopied(),
             message: nil,
-            preferredStyle: .alert
+            actionTitles: ["OK"],
+            actions: [nil]
         )
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    }
+}
+
+// MARK: - TapGesture
+extension ResultViewController {
+    private func addTapGesture(to view: UIView, action: Selector) {
+        let tapGesture = UITapGestureRecognizer(target: self, action: action)
+        view.addGestureRecognizer(tapGesture)
+    }
+}
+
+// MARK: - ShowAlert
+extension ResultViewController {
+    private func showAlert(title: String, message: String?, actionTitles: [String], actions: [(() -> Void)?]) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        for (index, title) in actionTitles.enumerated() {
+            let action = UIAlertAction(title: title, style: .default) { _ in
+                actions[index]?()
+            }
+            alert.addAction(action)
+        }
         alert.overrideUserInterfaceStyle = .dark
-        present(alert, animated: true, completion: nil)
+        present(alert, animated: true)
     }
 }

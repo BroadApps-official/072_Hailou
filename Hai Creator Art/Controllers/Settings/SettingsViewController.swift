@@ -11,6 +11,15 @@ final class SettingsViewController: UIViewController {
     private let firstStackView = UIStackView()
     private let secondStackView = UIStackView()
     private let thirdStackView = UIStackView()
+    
+    private let rateView = SettingsView(type: .rate)
+    private let upgradeView = SettingsView(type: .upgrade)
+    private let cacheView = SettingsView(type: .cache)
+    private let restoreView = SettingsView(type: .restore)
+    private let contactView = SettingsView(type: .contact)
+    private let privacyView = SettingsView(type: .privacyPolicy)
+    private let usageView = SettingsView(type: .usagePolicy)
+    private let notificationsView = NotificationsView()
 
     private let supportLabel = UILabel()
     private let purchaseLabel = UILabel()
@@ -20,7 +29,7 @@ final class SettingsViewController: UIViewController {
     private let scrollView = UIScrollView()
     private let contentView = UIView()
 
-    private let purchaseManager = PurchaseManager()
+    private let purchaseManager = PaymentManager()
 
     private let privacyURL: URL = {
         guard let url = URL(string: "https://docs.google.com/document/d/1kelhcY_r-CtKRVDh21FEFIH2dhyR2xRb8ak5T1Fh41Y/edit?usp=sharing") else {
@@ -45,17 +54,6 @@ final class SettingsViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    private lazy var rateView = RateView(delegate: self)
-
-    private lazy var upgradeView = ActionsView(type: .upgrade, delegate: self)
-    private lazy var restorePurchasesView = ActionsView(type: .restorePurchases, delegate: self)
-    private lazy var notificationsView = ActionsView(type: .notifications, delegate: self)
-    private lazy var casheView = ActionsView(type: .cashe, delegate: self)
-
-    private lazy var contactView = SupportView(type: .contact, delegate: self)
-    private lazy var privacyPolicyView = SupportView(type: .privacyPolicy, delegate: self)
-    private lazy var usagePolicyView = SupportView(type: .usagePolicy, delegate: self)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,6 +85,15 @@ final class SettingsViewController: UIViewController {
 
         drawSelf()
         configureConstraints()
+        
+        rateView.delegate = self
+        upgradeView.delegate = self
+        cacheView.delegate = self
+        restoreView.delegate = self
+        contactView.delegate = self
+        privacyView.delegate = self
+        usageView.delegate = self
+        notificationsView.delegate = self
     }
 
     private func setupTitle() {
@@ -119,6 +126,15 @@ final class SettingsViewController: UIViewController {
     }
 
     private func drawSelf() {
+        rateView.configureSettingsView(icon: R.image.set_rate_icon(), title: L.rateApp())
+        upgradeView.configureSettingsView(icon: R.image.set_upgrade_icon(), title: L.upgrade())
+        cacheView.configureSettingsView(icon: R.image.set_cashe_icon(), title: L.clearCache())
+        restoreView.configureSettingsView(icon: R.image.set_restore_icon(), title: L.restore())
+        contactView.configureSettingsView(icon: R.image.set_contact_icon(), title: L.contact())
+        privacyView.configureSettingsView(icon: R.image.set_privacy_icon(), title: L.privacy())
+        usageView.configureSettingsView(icon: R.image.set_usage_icon(), title: L.usage())
+        notificationsView.configureNotificationsView(icon: R.image.set_notifications_icon(), title: L.notifications())
+        
         [firstStackView, secondStackView, thirdStackView].forEach { stackView in
             stackView.do { make in
                 make.axis = .vertical
@@ -152,11 +168,11 @@ final class SettingsViewController: UIViewController {
         )
 
         secondStackView.addArrangedSubviews(
-            [upgradeView, notificationsView, casheView, restorePurchasesView]
+            [upgradeView, notificationsView, cacheView, restoreView]
         )
 
         thirdStackView.addArrangedSubviews(
-            [contactView, privacyPolicyView, usagePolicyView]
+            [contactView, privacyView, usageView]
         )
 
         scrollView.addSubviews(contentView)
@@ -221,8 +237,8 @@ final class SettingsViewController: UIViewController {
             make.height.equalTo(148)
         }
 
-        [upgradeView, restorePurchasesView, notificationsView, casheView,
-         rateView, contactView, privacyPolicyView, usagePolicyView].forEach { label in
+        [upgradeView, restoreView, notificationsView, cacheView,
+         rateView, contactView, privacyView, usageView].forEach { label in
             label.snp.makeConstraints { make in
                 make.height.equalTo(44)
             }
@@ -282,7 +298,7 @@ final class SettingsViewController: UIViewController {
 
     // MARK: - Restore Purchases
     private func restorePurchases() {
-        let purchaseManager = PurchaseManager()
+        let purchaseManager = PaymentManager()
         purchaseManager.restorePurchase { success in
             if success {
                 debugPrint("restorePurchase succeed.")
@@ -300,27 +316,71 @@ final class SettingsViewController: UIViewController {
     }
 }
 
-// MARK: - RateViewDelegate
-extension SettingsViewController: RateViewDelegate {
-    func tapRateView() {
-        DispatchQueue.main.async {
-            guard let url = URL(string: "itms-apps://itunes.apple.com/app/id6743743577?action=write-review") else {
-                return
-            }
-
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            } else {
-                print("Unable to open App Store")
-            }
-        }
+// MARK: - MFMailComposeViewControllerDelegate
+extension SettingsViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }
 
-// MARK: - SupportViewDelegate
-extension SettingsViewController: SupportViewDelegate {
-    func tapSupportView(type: SupportView.SupportType) {
+// MARK: - SKPaymentQueueDelegate
+extension SettingsViewController: SKPaymentQueueDelegate {
+    func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
+        let alert = UIAlertController(title: L.restoreLabel(), message: L.purchasesRestored(), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+
+    func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
+        let alert = UIAlertController(title: L.error(), message: L.errorRestore(), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+}
+
+// MARK: - SettingsViewDelegate
+extension SettingsViewController: SettingsViewDelegate {
+    func tapSettingsView(type: SettingsView.SettingsType) {
         switch type {
+        case .rate:
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                guard let url = URL(string: "itms-apps://itunes.apple.com/app/id6743743577?action=write-review") else {
+                    return
+                }
+                if UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    let alert = UIAlertController(title: L.error(),
+                                                  message: L.unableOpen(),
+                                                  preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default)
+                    alert.addAction(okAction)
+                    alert.overrideUserInterfaceStyle = .dark
+                    self.present(alert, animated: true)
+                }
+            }
+        case .upgrade:
+            let subscriptionVC = SubscriptionViewController(isFromOnboarding: false)
+            subscriptionVC.modalPresentationStyle = .fullScreen
+            present(subscriptionVC, animated: true, completion: nil)
+        case .cache:
+            let alertController = UIAlertController(title: L.deleteData(),
+                                                    message: L.wantDeleteData(),
+                                                    preferredStyle: .alert)
+
+            let confirmAction = UIAlertAction(title: "Yes", style: .destructive) { _ in
+                StorageManager.shared.clearAllGeneratedVideosAndCache()
+            }
+
+            let cancelAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
+
+            alertController.addAction(confirmAction)
+            alertController.addAction(cancelAction)
+            alertController.overrideUserInterfaceStyle = .dark
+            present(alertController, animated: true, completion: nil)
+        case .restore:
+            restorePurchases()
         case .contact:
             sendEmail()
         case .privacyPolicy:
@@ -345,56 +405,9 @@ extension SettingsViewController: SupportViewDelegate {
     }
 }
 
-// MARK: - ActionsViewDelegate
-extension SettingsViewController: ActionsViewDelegate {
-    func tapActionsView(type: ActionsView.ActionsType, switchValue: Bool) {
-        switch type {
-        case .upgrade:
-            let subscriptionVC = SubscriptionViewController(isFromOnboarding: false)
-            subscriptionVC.modalPresentationStyle = .fullScreen
-            present(subscriptionVC, animated: true, completion: nil)
-        case .notifications:
-            print("notifications switchValue: \(switchValue)")
-        case .cashe:
-            let alertController = UIAlertController(title: "Delete Data",
-                                                    message: "Are you sure you want to delete all data?",
-                                                    preferredStyle: .alert)
-
-            let confirmAction = UIAlertAction(title: "Yes", style: .destructive) { _ in
-                CacheManager.shared.clearAllGeneratedVideosAndCache()
-            }
-
-            let cancelAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
-
-            alertController.addAction(confirmAction)
-            alertController.addAction(cancelAction)
-            alertController.overrideUserInterfaceStyle = .dark
-
-            present(alertController, animated: true, completion: nil)
-        case .restorePurchases:
-            restorePurchases()
-        }
-    }
-}
-
-// MARK: - MFMailComposeViewControllerDelegate
-extension SettingsViewController: MFMailComposeViewControllerDelegate {
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        controller.dismiss(animated: true, completion: nil)
-    }
-}
-
-// MARK: - SKPaymentQueueDelegate
-extension SettingsViewController: SKPaymentQueueDelegate {
-    func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
-        let alert = UIAlertController(title: "Restore Purchases", message: "Your purchases have been restored.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
-
-    func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
-        let alert = UIAlertController(title: "Error", message: "There was an error restoring your purchases. Please try again.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
+// MARK: - NotificationsViewDelegate
+extension SettingsViewController: NotificationsViewDelegate {
+    func tapNotificationsView(switchValue: Bool) {
+        print("Notifications: \(switchValue)")
     }
 }

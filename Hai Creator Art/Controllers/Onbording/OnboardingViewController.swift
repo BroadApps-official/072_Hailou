@@ -8,7 +8,6 @@ final class OnboardingViewController: UIViewController {
     private var pagesViewControllers = [UIViewController]()
 
     private var currentPage: OnboardingPageViewController.Page = .effects
-    private var trackButtonTapsCount = 0
 
     private lazy var first = OnboardingPageViewController(page: .effects)
     private lazy var second = OnboardingPageViewController(page: .photo)
@@ -18,8 +17,6 @@ final class OnboardingViewController: UIViewController {
 
     private let continueButton = HailuoButton()
     private let laterLabel = UILabel()
-
-    var isFirstTap = true
 
     private let firstCircleView = UIView()
     private let secondCircleView = UIView()

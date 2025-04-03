@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		E7011C372C1C8AA400B3A4D7 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7011C362C1C8AA400B3A4D7 /* UIDevice.swift */; };
 		E70B0D072D6DFD3A00530DD0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E70B0D062D6DFD3A00530DD0 /* Localizable.strings */; };
-		E71D00752CE3676C0011C8AF /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71D00742CE3676C0011C8AF /* PurchaseManager.swift */; };
+		E71D00752CE3676C0011C8AF /* PaymentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71D00742CE3676C0011C8AF /* PaymentManager.swift */; };
 		E73F6A562D9AF3AA004FAB43 /* GenerationTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73F6A552D9AF3AA004FAB43 /* GenerationTimeViewController.swift */; };
 		E73F6A5A2D9AF42D004FAB43 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = E73F6A592D9AF42D004FAB43 /* Lottie */; };
 		E73F6A5D2D9AF4F3004FAB43 /* LottieAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = E73F6A5C2D9AF4F3004FAB43 /* LottieAnimation.json */; };
@@ -29,18 +29,14 @@
 		E75E7D0D2D50C67A00F293F1 /* ApphudSDK in Frameworks */ = {isa = PBXBuildFile; productRef = E75E7D0C2D50C67A00F293F1 /* ApphudSDK */; };
 		E7638B122D6F49A900F16812 /* SFRestrorePurchaseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7638B112D6F49A900F16812 /* SFRestrorePurchaseLabel.swift */; };
 		E772CA042D923A6500BAD6AF /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E772CA032D923A6500BAD6AF /* SettingsViewController.swift */; };
-		E772CA082D923A8300BAD6AF /* RateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E772CA072D923A8300BAD6AF /* RateView.swift */; };
-		E772CA0A2D923A9700BAD6AF /* ActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E772CA092D923A9700BAD6AF /* ActionsView.swift */; };
-		E772CA0D2D923AB300BAD6AF /* SupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E772CA0C2D923AB300BAD6AF /* SupportView.swift */; };
-		E772CA0F2D931A5400BAD6AF /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E772CA0E2D931A5400BAD6AF /* NetworkService.swift */; };
+		E772CA0F2D931A5400BAD6AF /* DataClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E772CA0E2D931A5400BAD6AF /* DataClient.swift */; };
 		E772CA132D93217400BAD6AF /* Disk in Frameworks */ = {isa = PBXBuildFile; productRef = E772CA122D93217400BAD6AF /* Disk */; };
-		E772CA162D93227000BAD6AF /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E772CA152D93227000BAD6AF /* CacheManager.swift */; };
+		E772CA162D93227000BAD6AF /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E772CA152D93227000BAD6AF /* StorageManager.swift */; };
 		E772CA182D93A0A700BAD6AF /* UpperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E772CA172D93A0A700BAD6AF /* UpperView.swift */; };
 		E772CA1B2D93A99F00BAD6AF /* GradientLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E772CA1A2D93A99F00BAD6AF /* GradientLabel.swift */; };
 		E772CA202D93ABAA00BAD6AF /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E772CA1F2D93ABAA00BAD6AF /* CreateViewController.swift */; };
 		E772CA232D93ADE900BAD6AF /* SelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E772CA222D93ADE900BAD6AF /* SelectorView.swift */; };
 		E772CA252D93BE4000BAD6AF /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E772CA242D93BE4000BAD6AF /* TextView.swift */; };
-		E772CA282D93C2C300BAD6AF /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E772CA272D93C2C300BAD6AF /* KeyboardManager.swift */; };
 		E772CA2A2D93C3AB00BAD6AF /* SelectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E772CA292D93C3AB00BAD6AF /* SelectImageView.swift */; };
 		E772CA2C2D95AA2800BAD6AF /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E772CA2B2D95AA2800BAD6AF /* FilterCell.swift */; };
 		E772CA2F2D95B7D700BAD6AF /* OpenFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E772CA2E2D95B7D700BAD6AF /* OpenFilterViewController.swift */; };
@@ -60,12 +56,15 @@
 		E7B113AB2C14B06300E96820 /* HailuoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B113AA2C14B06300E96820 /* HailuoButton.swift */; };
 		E7B113BA2C14C35200E96820 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B113B92C14C35200E96820 /* TabBarController.swift */; };
 		E7B1142F2C1B342400E96820 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B1142E2C1B342400E96820 /* LaunchScreenViewController.swift */; };
+		E7CA8C502D9EB8C500EE363F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CA8C4F2D9EB8C500EE363F /* SettingsView.swift */; };
+		E7CA8C532D9EBD0F00EE363F /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CA8C522D9EBD0F00EE363F /* NotificationsView.swift */; };
+		E7CA8C572D9EC5ED00EE363F /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E7CA8C562D9EC5ED00EE363F /* IQKeyboardManagerSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E7011C362C1C8AA400B3A4D7 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		E70B0D062D6DFD3A00530DD0 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
-		E71D00742CE3676C0011C8AF /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
+		E71D00742CE3676C0011C8AF /* PaymentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentManager.swift; sourceTree = "<group>"; };
 		E73F6A552D9AF3AA004FAB43 /* GenerationTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerationTimeViewController.swift; sourceTree = "<group>"; };
 		E73F6A5C2D9AF4F3004FAB43 /* LottieAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LottieAnimation.json; sourceTree = "<group>"; };
 		E73FD54E2CCA68E200F7C940 /* UIFontExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtention.swift; sourceTree = "<group>"; };
@@ -83,17 +82,13 @@
 		E75E7D042D4D2D0300F293F1 /* ArrayExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtention.swift; sourceTree = "<group>"; };
 		E7638B112D6F49A900F16812 /* SFRestrorePurchaseLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFRestrorePurchaseLabel.swift; sourceTree = "<group>"; };
 		E772CA032D923A6500BAD6AF /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		E772CA072D923A8300BAD6AF /* RateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateView.swift; sourceTree = "<group>"; };
-		E772CA092D923A9700BAD6AF /* ActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsView.swift; sourceTree = "<group>"; };
-		E772CA0C2D923AB300BAD6AF /* SupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportView.swift; sourceTree = "<group>"; };
-		E772CA0E2D931A5400BAD6AF /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		E772CA152D93227000BAD6AF /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		E772CA0E2D931A5400BAD6AF /* DataClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataClient.swift; sourceTree = "<group>"; };
+		E772CA152D93227000BAD6AF /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		E772CA172D93A0A700BAD6AF /* UpperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpperView.swift; sourceTree = "<group>"; };
 		E772CA1A2D93A99F00BAD6AF /* GradientLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientLabel.swift; sourceTree = "<group>"; };
 		E772CA1F2D93ABAA00BAD6AF /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		E772CA222D93ADE900BAD6AF /* SelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectorView.swift; sourceTree = "<group>"; };
 		E772CA242D93BE4000BAD6AF /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
-		E772CA272D93C2C300BAD6AF /* KeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManager.swift; sourceTree = "<group>"; };
 		E772CA292D93C3AB00BAD6AF /* SelectImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageView.swift; sourceTree = "<group>"; };
 		E772CA2B2D95AA2800BAD6AF /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		E772CA2E2D95B7D700BAD6AF /* OpenFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenFilterViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +108,8 @@
 		E7B113AA2C14B06300E96820 /* HailuoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HailuoButton.swift; sourceTree = "<group>"; };
 		E7B113B92C14C35200E96820 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		E7B1142E2C1B342400E96820 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
+		E7CA8C4F2D9EB8C500EE363F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		E7CA8C522D9EBD0F00EE363F /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +122,7 @@
 				E75E7D0D2D50C67A00F293F1 /* ApphudSDK in Frameworks */,
 				E75E7D0A2D50C66B00F293F1 /* SnapKit in Frameworks */,
 				E772CA132D93217400BAD6AF /* Disk in Frameworks */,
+				E7CA8C572D9EC5ED00EE363F /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,21 +140,21 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		E71D003D2CDA5E970011C8AF /* Network */ = {
+		E71D003D2CDA5E970011C8AF /* DataWork */ = {
 			isa = PBXGroup;
 			children = (
-				E772CA0E2D931A5400BAD6AF /* NetworkService.swift */,
-				E772CA152D93227000BAD6AF /* CacheManager.swift */,
+				E772CA0E2D931A5400BAD6AF /* DataClient.swift */,
+				E772CA152D93227000BAD6AF /* StorageManager.swift */,
 			);
-			path = Network;
+			path = DataWork;
 			sourceTree = "<group>";
 		};
-		E71D00692CE3618F0011C8AF /* PaymentConfiguration */ = {
+		E71D00692CE3618F0011C8AF /* SubClient */ = {
 			isa = PBXGroup;
 			children = (
-				E71D00742CE3676C0011C8AF /* PurchaseManager.swift */,
+				E71D00742CE3676C0011C8AF /* PaymentManager.swift */,
 			);
-			path = PaymentConfiguration;
+			path = SubClient;
 			sourceTree = "<group>";
 		};
 		E73F6A5B2D9AF449004FAB43 /* Animation */ = {
@@ -199,9 +197,8 @@
 			isa = PBXGroup;
 			children = (
 				E759BED92C1478D500FC2CCB /* Hai Creator Art */,
-				E7B114232C19D12000E96820 /* Helpers */,
-				E71D003D2CDA5E970011C8AF /* Network */,
-				E71D00692CE3618F0011C8AF /* PaymentConfiguration */,
+				E71D003D2CDA5E970011C8AF /* DataWork */,
+				E71D00692CE3618F0011C8AF /* SubClient */,
 				E7B1139B2C14AE9300E96820 /* Extentions */,
 				E759BEEF2C1480C000FC2CCB /* Utils */,
 				E759BED82C1478D500FC2CCB /* Products */,
@@ -241,13 +238,13 @@
 		E75D13E22C6D0CDC002A06B4 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				E73F6A5B2D9AF449004FAB43 /* Animation */,
 				E75D13E32C6D0D05002A06B4 /* HomeViewController.swift */,
 				E772CA1F2D93ABAA00BAD6AF /* CreateViewController.swift */,
 				E772CA2E2D95B7D700BAD6AF /* OpenFilterViewController.swift */,
 				E772CA322D95EB9700BAD6AF /* ExampleViewController.swift */,
 				E772CA382D970DE100BAD6AF /* ResultViewController.swift */,
 				E73F6A552D9AF3AA004FAB43 /* GenerationTimeViewController.swift */,
+				E73F6A5B2D9AF449004FAB43 /* Animation */,
 				E70DE00F2D300308006749D8 /* Views */,
 				E7638B302D7B3D8900F16812 /* Cell */,
 			);
@@ -274,9 +271,8 @@
 		E772CA062D923A6800BAD6AF /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E772CA072D923A8300BAD6AF /* RateView.swift */,
-				E772CA092D923A9700BAD6AF /* ActionsView.swift */,
-				E772CA0C2D923AB300BAD6AF /* SupportView.swift */,
+				E7CA8C4F2D9EB8C500EE363F /* SettingsView.swift */,
+				E7CA8C522D9EBD0F00EE363F /* NotificationsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -318,6 +314,7 @@
 		E7B1139B2C14AE9300E96820 /* Extentions */ = {
 			isa = PBXGroup;
 			children = (
+				E7011C362C1C8AA400B3A4D7 /* UIDevice.swift */,
 				E7B1139F2C14AEEC00E96820 /* Foudation */,
 				E7B1139C2C14AEB200E96820 /* UIKit */,
 			);
@@ -327,6 +324,7 @@
 		E7B1139C2C14AEB200E96820 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				E772CA1A2D93A99F00BAD6AF /* GradientLabel.swift */,
 				E7B1139D2C14AED600E96820 /* UIColorExtension.swift */,
 				E7B113A22C14AF3000E96820 /* UIViewExtension.swift */,
 				E7B113A42C14AF5D00E96820 /* UIStackViewExtension.swift */,
@@ -385,16 +383,6 @@
 			path = Tabbar;
 			sourceTree = "<group>";
 		};
-		E7B114232C19D12000E96820 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				E7011C362C1C8AA400B3A4D7 /* UIDevice.swift */,
-				E772CA1A2D93A99F00BAD6AF /* GradientLabel.swift */,
-				E772CA272D93C2C300BAD6AF /* KeyboardManager.swift */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
 		E7B1142D2C1B2FD800E96820 /* LaunchScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -426,6 +414,7 @@
 				E772CA122D93217400BAD6AF /* Disk */,
 				E73F6A592D9AF42D004FAB43 /* Lottie */,
 				E73F6A672D9C2FC7004FAB43 /* RswiftLibrary */,
+				E7CA8C562D9EC5ED00EE363F /* IQKeyboardManagerSwift */,
 			);
 			productName = SportCoach;
 			productReference = E759BED72C1478D500FC2CCB /* Hai Creator Art.app */;
@@ -461,6 +450,7 @@
 				E772CA112D93217300BAD6AF /* XCRemoteSwiftPackageReference "Disk" */,
 				E73F6A582D9AF42D004FAB43 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 				E73F6A622D9C2EDA004FAB43 /* XCRemoteSwiftPackageReference "R" */,
+				E7CA8C552D9EC5ED00EE363F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = E759BED82C1478D500FC2CCB /* Products */;
 			projectDirPath = "";
@@ -490,23 +480,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7AAC1C02D89AAC400C83047 /* HistoryViewController.swift in Sources */,
+				E7CA8C502D9EB8C500EE363F /* SettingsView.swift in Sources */,
 				E7B113A32C14AF3000E96820 /* UIViewExtension.swift in Sources */,
 				E7B1142F2C1B342400E96820 /* LaunchScreenViewController.swift in Sources */,
 				E7B113982C149CC000E96820 /* OnboardingViewController.swift in Sources */,
 				E772CA332D95EB9700BAD6AF /* ExampleViewController.swift in Sources */,
 				E73FD5522CCAA1CD00F7C940 /* SubscriptionViewController.swift in Sources */,
-				E71D00752CE3676C0011C8AF /* PurchaseManager.swift in Sources */,
+				E71D00752CE3676C0011C8AF /* PaymentManager.swift in Sources */,
 				E7B113A12C14AF0800E96820 /* Do.swift in Sources */,
 				E7B113AB2C14B06300E96820 /* HailuoButton.swift in Sources */,
 				E75E7D052D4D2D0300F293F1 /* ArrayExtention.swift in Sources */,
 				E7638B122D6F49A900F16812 /* SFRestrorePurchaseLabel.swift in Sources */,
 				E7AAC1C42D89AB8C00C83047 /* EmptyHistoryView.swift in Sources */,
 				E772CA362D96EF0300BAD6AF /* HistoryCell.swift in Sources */,
-				E772CA162D93227000BAD6AF /* CacheManager.swift in Sources */,
+				E772CA162D93227000BAD6AF /* StorageManager.swift in Sources */,
 				E73FD54F2CCA68E200F7C940 /* UIFontExtention.swift in Sources */,
-				E772CA282D93C2C300BAD6AF /* KeyboardManager.swift in Sources */,
-				E772CA0D2D923AB300BAD6AF /* SupportView.swift in Sources */,
-				E772CA082D923A8300BAD6AF /* RateView.swift in Sources */,
 				E73FD55B2CCAFE3D00F7C940 /* SFTermsOfUse.swift in Sources */,
 				E7011C372C1C8AA400B3A4D7 /* UIDevice.swift in Sources */,
 				E772CA2C2D95AA2800BAD6AF /* FilterCell.swift in Sources */,
@@ -524,14 +512,14 @@
 				E759BEDB2C1478D500FC2CCB /* AppDelegate.swift in Sources */,
 				E772CA1B2D93A99F00BAD6AF /* GradientLabel.swift in Sources */,
 				E772CA182D93A0A700BAD6AF /* UpperView.swift in Sources */,
-				E772CA0A2D923A9700BAD6AF /* ActionsView.swift in Sources */,
 				E7AAC1D22D8A461C00C83047 /* SubCell.swift in Sources */,
 				E759BEDD2C1478D500FC2CCB /* SceneDelegate.swift in Sources */,
 				E772CA202D93ABAA00BAD6AF /* CreateViewController.swift in Sources */,
 				E75E7D012D4ABFAE00F293F1 /* UIImageExtention.swift in Sources */,
-				E772CA0F2D931A5400BAD6AF /* NetworkService.swift in Sources */,
+				E772CA0F2D931A5400BAD6AF /* DataClient.swift in Sources */,
 				E772CA2F2D95B7D700BAD6AF /* OpenFilterViewController.swift in Sources */,
 				E772CA232D93ADE900BAD6AF /* SelectorView.swift in Sources */,
+				E7CA8C532D9EBD0F00EE363F /* NotificationsView.swift in Sources */,
 				E7B1139A2C14AE2B00E96820 /* OnboardingPageViewController.swift in Sources */,
 				E73F6A562D9AF3AA004FAB43 /* GenerationTimeViewController.swift in Sources */,
 			);
@@ -690,7 +678,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shc.haicraart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -727,7 +715,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shc.haicraart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -812,6 +800,14 @@
 				minimumVersion = 0.6.4;
 			};
 		};
+		E7CA8C552D9EC5ED00EE363F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -844,6 +840,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E772CA112D93217300BAD6AF /* XCRemoteSwiftPackageReference "Disk" */;
 			productName = Disk;
+		};
+		E7CA8C562D9EC5ED00EE363F /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E7CA8C552D9EC5ED00EE363F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

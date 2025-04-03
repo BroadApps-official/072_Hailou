@@ -1,71 +1,69 @@
 import StoreKit
 import UIKit
 
-protocol SFRestrorePurchaseLabelDelegate: AnyObject {
+protocol SFRestorePurchaseButtonDelegate: AnyObject {
     func didFailToRestorePurchases()
 }
 
-class SFRestrorePurchaseLabel: UILabel {
+class SFRestorePurchaseButton: UIButton {
+    weak var delegate: SFRestorePurchaseButtonDelegate?
+    private let purchaseManager = PaymentManager()
+    
     var mainColor: UIColor = UIColor.labelsTertiary {
         didSet {
-            setupText()
+            updateAppearance()
         }
     }
-
-    private let purchaseManager = PurchaseManager()
-    weak var delegate: SFRestrorePurchaseLabelDelegate?
-
+    
     init() {
         super.init(frame: .zero)
-        let paragraph = NSMutableParagraphStyle()
-        paragraph.alignment = .center
-
-        textAlignment = .center
+        setupButton()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupButton() {
+        setTitle(L.restoreLabel(), for: .normal)
+        titleLabel?.font = UIFont.CustomFont.caption1Regular
+        setTitleColor(mainColor, for: .normal)
         backgroundColor = .clear
-        numberOfLines = 0
-        isUserInteractionEnabled = true
-        sizeToFit()
-        clipsToBounds = false
-        setupText()
-
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapRestorePurchases))
-        addGestureRecognizer(tapGesture)
+        addTarget(self, action: #selector(didTapRestorePurchases), for: .touchUpInside)
     }
-
-    private func setupText() {
-        let text = L.restoreLabel()
-        let attributedString = NSMutableAttributedString(string: text)
-
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.CustomFont.caption1Regular,
-            .foregroundColor: mainColor
-        ]
-
-        attributedString.addAttributes(attributes, range: NSRange(location: 0, length: text.count))
-
-        attributedText = attributedString
+    
+    private func updateAppearance() {
+        setTitleColor(mainColor, for: .normal)
     }
-
-    // MARK: - Actions
-
+    
     @objc private func didTapRestorePurchases() {
-        alpha = 0.5
-
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            self?.alpha = 1.0
+        animateClick { [weak self] in
+            self?.restorePurchases()
         }
+    }
 
-        purchaseManager.restorePurchase { success in
-            if success {
-                debugPrint("restorePurchase succeed.")
-            } else {
-                debugPrint("restorePurchase failed.")
-                self.delegate?.didFailToRestorePurchases()
+    private func animateClick(completion: @escaping () -> Void) {
+        UIView.animate(withDuration: 0.05, animations: {
+            self.transform = CGAffineTransform(scaleX: 0.92, y: 0.92)
+        }) { _ in
+            UIView.animate(withDuration: 0.05, animations: {
+                self.transform = .identity
+            }) { _ in
+                completion()
             }
         }
     }
 
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    private func restorePurchases() {
+        purchaseManager.restorePurchase { [weak self] success in
+            guard let self = self else { return }
+            
+            if success {
+                print("Restore purchase succeeded.")
+            } else {
+                print("Restore purchase failed.")
+                self.delegate?.didFailToRestorePurchases()
+            }
+        }
     }
 }

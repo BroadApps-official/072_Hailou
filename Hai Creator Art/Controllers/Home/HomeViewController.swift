@@ -6,7 +6,7 @@ import UIKit
 import UniformTypeIdentifiers
 
 final class HomeViewController: UIViewController {
-    private let purchaseManager = PurchaseManager()
+    private let purchaseManager = PaymentManager()
     private let activityIndicator = UIActivityIndicatorView(style: .large)
 
     private var filters: [Filter] = []
@@ -286,26 +286,26 @@ final class HomeViewController: UIViewController {
     private func checkVideoTaskStatus(videoId: String, generatedVideo: inout GeneratedVideo, prompt: String?) async -> Bool {
         while true {
             do {
-                let videoStatus = try await NetworkService.shared.checkVideoTaskStatus(videoId: videoId)
+                let videoStatus = try await DataClient.shared.checkVideoTaskStatus(videoId: videoId)
 
                 if let isFinished = videoStatus["is_finished"] as? Bool, isFinished {
-                    let videoUrl = try await NetworkService.shared.downloadVideoFile(videoId: videoId, prompt: prompt ?? "")
+                    let videoUrl = try await DataClient.shared.downloadVideoFile(videoId: videoId, prompt: prompt ?? "")
                     generatedVideo.isFinished = true
-                    CacheManager.shared.saveGeneratedVideoModel(generatedVideo)
+                    StorageManager.shared.saveGeneratedVideoModel(generatedVideo)
                     removePromptGeneratedVideo(generatedVideo)
                     await navigateToResultViewController(generatedVideo: generatedVideo)
                     return true
                 }
 
                 if let isInvalid = videoStatus["is_invalid"] as? Bool, isInvalid {
-                    CacheManager.shared.deleteVideoModel(generatedVideo)
+                    StorageManager.shared.deleteVideoModel(generatedVideo)
                     removePromptGeneratedVideo(generatedVideo)
                     showErrorAlert()
                     return true
                 }
 
             } catch {
-                CacheManager.shared.deleteVideoModel(generatedVideo)
+                StorageManager.shared.deleteVideoModel(generatedVideo)
                 removePromptGeneratedVideo(generatedVideo)
                 showErrorAlert()
                 return true
@@ -386,11 +386,11 @@ final class HomeViewController: UIViewController {
         var updatedVideoModel = videoModel
         while true {
             do {
-                let statusData = try await NetworkService.shared.getGenerationStatus(generationId: generationId)
+                let statusData = try await DataClient.shared.getGenerationStatus(generationId: generationId)
                 if updatedVideoModel.id != String(generationId) {
                     removeFilterGeneratedVideo(updatedVideoModel)
                     showErrorAlert()
-                    CacheManager.shared.deleteVideoModel(updatedVideoModel)
+                    StorageManager.shared.deleteVideoModel(updatedVideoModel)
                     return updatedVideoModel
                 }
 
@@ -398,19 +398,19 @@ final class HomeViewController: UIViewController {
                     updatedVideoModel.isFinished = true
                     updatedVideoModel.videoURL = statusData.result
 
-                    CacheManager.shared.saveGeneratedVideoModel(updatedVideoModel)
+                    StorageManager.shared.saveGeneratedVideoModel(updatedVideoModel)
                     removeFilterGeneratedVideo(updatedVideoModel)
                     await navigateToResultViewController(generatedVideo: updatedVideoModel)
                     return updatedVideoModel
                 } else if statusData.status == -1 || statusData.status == 4 {
                     removeFilterGeneratedVideo(updatedVideoModel)
                     showErrorAlert()
-                    CacheManager.shared.deleteVideoModel(updatedVideoModel)
+                    StorageManager.shared.deleteVideoModel(updatedVideoModel)
                     return updatedVideoModel
                 }
             } catch {
                 showErrorAlert()
-                CacheManager.shared.deleteVideoModel(updatedVideoModel)
+                StorageManager.shared.deleteVideoModel(updatedVideoModel)
                 return updatedVideoModel
             }
 

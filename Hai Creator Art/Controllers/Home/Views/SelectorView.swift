@@ -7,19 +7,14 @@ protocol SelectorDelegate: AnyObject {
 
 final class SelectorView: UIControl {
     private let mainContainerView = UIView()
-
     private let imageView = UIView()
     private let textView = UIView()
-
     private let imageLabel = UILabel()
     private let textLabel = UILabel()
-
     private let containerStackView = UIStackView()
-
+    
     private var selectedIndex: Int? {
-        didSet {
-            updateViewsAppearance()
-        }
+        didSet { updateViewsAppearance() }
     }
 
     private var views: [UIView] = []
@@ -38,110 +33,72 @@ final class SelectorView: UIControl {
     }
 
     private func setupUI() {
-        mainContainerView.do { make in
-            make.backgroundColor = UIColor.bgTertiary
-            make.layer.cornerRadius = 12
+        mainContainerView.backgroundColor = UIColor.bgTertiary
+        mainContainerView.layer.cornerRadius = 12
+
+        [imageView, textView].forEach { view in
+            view.backgroundColor = UIColor.accentPrimary
+            view.isUserInteractionEnabled = true
+            view.layer.cornerRadius = 12
         }
 
-        imageView.do { make in
-            make.backgroundColor = UIColor.accentPrimary
-            make.isUserInteractionEnabled = true
-            make.layer.cornerRadius = 12
-        }
+        containerStackView.axis = .horizontal
+        containerStackView.spacing = 0
+        containerStackView.distribution = .fillEqually
 
-        textView.do { make in
-            make.backgroundColor = UIColor.accentPrimary
-            make.isUserInteractionEnabled = true
-            make.layer.cornerRadius = 12
-        }
+        imageLabel.text = L.imageVideo()
+        imageLabel.textAlignment = .center
 
-        containerStackView.do { make in
-            make.axis = .horizontal
-            make.spacing = 0
-            make.distribution = .fillEqually
-        }
-
-        imageLabel.do { make in
-            make.text = L.imageVideo()
-            make.textAlignment = .center
-        }
-
-        textLabel.do { make in
-            make.text = L.textVideo()
-            make.textAlignment = .center
-        }
+        textLabel.text = L.textVideo()
+        textLabel.textAlignment = .center
 
         imageView.addSubview(imageLabel)
         textView.addSubview(textLabel)
-
-        containerStackView.addArrangedSubviews(
-            [imageView, textView]
-        )
-        mainContainerView.addSubviews(containerStackView)
+        containerStackView.addArrangedSubviews([imageView, textView])
+        mainContainerView.addSubview(containerStackView)
         addSubview(mainContainerView)
 
-        let tapGestureRecognizers = [
-            UITapGestureRecognizer(target: self, action: #selector(imageTapped)),
-            UITapGestureRecognizer(target: self, action: #selector(textTapped))
-        ]
-
-        imageView.addGestureRecognizer(tapGestureRecognizers[0])
-        textView.addGestureRecognizer(tapGestureRecognizers[1])
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageTapped)))
+        textView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(textTapped)))
 
         views = [imageView, textView]
         updateViewsAppearance()
     }
 
     private func setupConstraints() {
-        mainContainerView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        mainContainerView.snp.makeConstraints { $0.edges.equalToSuperview() }
+        
+        [imageLabel, textLabel].forEach {
+            $0.snp.makeConstraints { $0.center.equalToSuperview() }
         }
 
-        [imageLabel, textLabel].forEach { label in
-            label.snp.makeConstraints { make in
-                make.center.equalToSuperview()
+        containerStackView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+            $0.height.equalTo(48)
+        }
+
+        [imageView, textView].forEach {
+            $0.snp.makeConstraints {
+                $0.top.bottom.equalTo(containerStackView).inset(2)
+                $0.height.equalTo(45)
             }
         }
 
-        containerStackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-            make.height.equalTo(48)
-        }
-
-        imageView.snp.makeConstraints { make in
-            make.top.equalTo(containerStackView.snp.top).offset(2)
-            make.bottom.equalTo(containerStackView.snp.bottom).offset(-2)
-            make.leading.equalTo(containerStackView.snp.leading).offset(2)
-            make.height.equalTo(45)
-        }
-
-        textView.snp.makeConstraints { make in
-            make.top.equalTo(containerStackView.snp.top).offset(2)
-            make.bottom.equalTo(containerStackView.snp.bottom).offset(-2)
-            make.trailing.equalTo(containerStackView.snp.trailing).offset(-2)
-            make.height.equalTo(45)
-        }
+        imageView.snp.makeConstraints { $0.leading.equalTo(containerStackView).offset(2) }
+        textView.snp.makeConstraints { $0.trailing.equalTo(containerStackView).offset(-2) }
     }
 
-    @objc private func imageTapped() {
-        selectedIndex = 0
-    }
-
-    @objc private func textTapped() {
-        selectedIndex = 1
-    }
+    @objc private func imageTapped() { selectedIndex = 0 }
+    @objc private func textTapped() { selectedIndex = 1 }
 
     private func updateViewsAppearance() {
-        for (index, view) in views.enumerated() {
+        views.enumerated().forEach { index, view in
             let isSelected = index == selectedIndex
             let label = (view == imageView) ? imageLabel : textLabel
 
-            view.setNeedsLayout()
-            view.layoutIfNeeded()
-
-            if let gradientLayer = view.layer.sublayers?.first(where: { $0 is CAGradientLayer }) {
-                gradientLayer.removeFromSuperlayer()
-            }
+            view.layer.sublayers?
+                .filter { $0 is CAGradientLayer }
+                .forEach { $0.removeFromSuperlayer() }
 
             if isSelected {
                 let gradientLayer = CAGradientLayer()
@@ -151,11 +108,8 @@ final class SelectorView: UIControl {
                 ]
                 gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
                 gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
-
                 gradientLayer.frame = view.bounds
                 gradientLayer.cornerRadius = 12
-                gradientLayer.masksToBounds = true
-
                 view.layer.insertSublayer(gradientLayer, at: 0)
             } else {
                 view.backgroundColor = .clear
@@ -167,26 +121,14 @@ final class SelectorView: UIControl {
             view.bringSubviewToFront(label)
         }
 
-        setNeedsLayout()
-        layoutIfNeeded()
-
-        guard let selectedIndex = selectedIndex else { return }
-        delegate?.didSelect(at: selectedIndex)
+        delegate?.didSelect(at: selectedIndex ?? 0)
     }
 
     func configure(selectedIndex: Int) {
-        guard selectedIndex >= 0 && selectedIndex < views.count else {
-            fatalError("Invalid index provided for SelectorView configuration")
-        }
+        guard (0..<views.count).contains(selectedIndex) else { return }
         self.selectedIndex = selectedIndex
-        updateViewsAppearance()
     }
 
-    func updateFirstLabel(_ text: String) {
-        imageLabel.text = text
-    }
-
-    func updateSecondLabel(_ text: String) {
-        textLabel.text = text
-    }
+    func updateFirstLabel(_ text: String) { imageLabel.text = text }
+    func updateSecondLabel(_ text: String) { textLabel.text = text }
 }

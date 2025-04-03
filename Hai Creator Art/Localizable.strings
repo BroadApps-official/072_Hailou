@@ -94,6 +94,12 @@
 "close" = "Close";
 "failRestoreLabel" = "No Subscription Found";
 "failRestoreMessage" = "We couldn’t find an active subscription for your account";
+"purchasesRestored" = "Your purchases have been restored.";
+"error" = "Error";
+"errorRestore" = "There was an error restoring your purchases. Please try again.";
+"deleteData" = "Delete Data";
+"wantDeleteData" = "Are you sure you want to delete all data?";
+"unableOpen" = "Unable to open App Store";
 
 // History VC
 

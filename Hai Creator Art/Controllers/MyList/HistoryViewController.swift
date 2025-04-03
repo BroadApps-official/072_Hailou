@@ -2,7 +2,7 @@ import SnapKit
 import UIKit
 
 final class HistoryViewController: UIViewController {
-    private let purchaseManager = PurchaseManager()
+    private let purchaseManager = PaymentManager()
 
     private let emptyHistoryView = EmptyHistoryView()
     private var selectorView = SelectorView(selectedIndex: 0, frame: .zero)
@@ -75,7 +75,7 @@ final class HistoryViewController: UIViewController {
     }
 
     private func loadAllVideoModels() {
-        let allVideoModels = CacheManager.shared.loadGeneratedVideos().reversed()
+        let allVideoModels = StorageManager.shared.loadGeneratedVideos().reversed()
         if selectedIndex == 0 {
             videoModels = allVideoModels.filter { $0.source == .api1 }
         } else {

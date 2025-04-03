@@ -21,7 +21,7 @@ final class OpenFilterViewController: UIViewController {
     private let selectFirstDoubleImageView = SelectImageView()
     private let selectSecondDoubleImageView = SelectImageView()
     private var activeImageViewTag: Int?
-    private let purchaseManager = PurchaseManager()
+    private let purchaseManager = PaymentManager()
 
     private var selectedImage: UIImage?
     private var selectedFirstDoubleImage: UIImage?
@@ -31,7 +31,6 @@ final class OpenFilterViewController: UIViewController {
     private var selectedSecondDoubleImagePath: String?
 
     private let maxGenerationCount = 2
-    private var isFirstGeneration: Bool = false
 
     init(model: Filter) {
         self.model = model
@@ -84,16 +83,7 @@ final class OpenFilterViewController: UIViewController {
         super.viewWillAppear(animated)
         updateCreateButtonState()
     }
-
-    private func setupNavBar() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: "back_icon")?.withRenderingMode(.alwaysOriginal),
-            style: .plain,
-            target: self,
-            action: #selector(didTapCloseButton)
-        )
-    }
-
+    
     private func drawself() {
         selectorView.updateFirstLabel(L.singlePhoto())
         selectorView.updateSecondLabel(L.groupPhoto())
@@ -237,7 +227,7 @@ final class OpenFilterViewController: UIViewController {
 
     // MARK: - Video Logic
     private func setupVideo(for filter: Filter) {
-        guard let videoURL = CacheManager.shared.loadVideoURLFromCache(fileName: "\(filter.id)_preview.mp4") else {
+        guard let videoURL = StorageManager.shared.loadVideoURLFromCache(fileName: "\(filter.id)_preview.mp4") else {
             return
         }
         playVideo(from: videoURL)
@@ -328,7 +318,7 @@ final class OpenFilterViewController: UIViewController {
 
         Task {
             do {
-                let generationId = try await NetworkService.shared.generateVideo(from: finalImage, filterID: filterId)
+                let generationId = try await DataClient.shared.generateVideo(from: finalImage, filterID: filterId)
                 generatedVideo = GeneratedVideo(
                     id: String(generationId),
                     prompt: nil,
@@ -339,7 +329,7 @@ final class OpenFilterViewController: UIViewController {
 
                 if let generatedVideo = generatedVideo {
                     saveLastGeneratedVideoData(video: generatedVideo)
-                    CacheManager.shared.saveGeneratedVideoModel(generatedVideo)
+                    StorageManager.shared.saveGeneratedVideoModel(generatedVideo)
                 }
                 openGeneration()
 
@@ -349,7 +339,7 @@ final class OpenFilterViewController: UIViewController {
             } catch {
                 generationError()
                 if let generatedVideo = generatedVideo {
-                    CacheManager.shared.deleteVideoModel(generatedVideo)
+                    StorageManager.shared.deleteVideoModel(generatedVideo)
                     removeGeneratedVideo(generatedVideo)
                 }
             }
@@ -360,11 +350,11 @@ final class OpenFilterViewController: UIViewController {
         var updatedVideoModel = videoModel
         while true {
             do {
-                let statusData = try await NetworkService.shared.getGenerationStatus(generationId: generationId)
+                let statusData = try await DataClient.shared.getGenerationStatus(generationId: generationId)
                 if updatedVideoModel.id != String(generationId) {
                     removeGeneratedVideo(updatedVideoModel)
                     generationError()
-                    CacheManager.shared.deleteVideoModel(updatedVideoModel)
+                    StorageManager.shared.deleteVideoModel(updatedVideoModel)
                     updateCreateButtonState()
                     return updatedVideoModel
                 }
@@ -372,7 +362,7 @@ final class OpenFilterViewController: UIViewController {
                     updatedVideoModel.isFinished = true
                     updatedVideoModel.videoURL = statusData.result
 
-                    CacheManager.shared.saveGeneratedVideoModel(updatedVideoModel)
+                    StorageManager.shared.saveGeneratedVideoModel(updatedVideoModel)
                     removeGeneratedVideo(updatedVideoModel)
                     updateCreateButtonState()
                     await navigateToResultViewController(generatedVideo: updatedVideoModel)
@@ -380,13 +370,13 @@ final class OpenFilterViewController: UIViewController {
                 } else if statusData.status == -1 || statusData.status == 4 {
                     removeGeneratedVideo(updatedVideoModel)
                     generationError()
-                    CacheManager.shared.deleteVideoModel(updatedVideoModel)
+                    StorageManager.shared.deleteVideoModel(updatedVideoModel)
                     updateCreateButtonState()
                     return updatedVideoModel
                 }
             } catch {
                 generationError()
-                CacheManager.shared.deleteVideoModel(updatedVideoModel)
+                StorageManager.shared.deleteVideoModel(updatedVideoModel)
                 updateCreateButtonState()
                 return updatedVideoModel
             }

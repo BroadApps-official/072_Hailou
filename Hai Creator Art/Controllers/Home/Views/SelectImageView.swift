@@ -11,6 +11,7 @@ final class SelectImageView: UIControl {
     private let stackView = UIStackView()
     private let plusImageView = UIImageView()
     private let plusLabel = UILabel()
+    private let dashedBorderLayer = CAShapeLayer()
     weak var delegate: SelectImageViewDelegate?
 
     // MARK: - Init
@@ -29,7 +30,7 @@ final class SelectImageView: UIControl {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        addDashedBorder(to: buttonContainer)
+        updateDashedBorder()
     }
 
     // MARK: - Private methods
@@ -40,12 +41,10 @@ final class SelectImageView: UIControl {
         buttonContainer.do { make in
             make.backgroundColor = UIColor.bgTertiary
             make.layer.cornerRadius = 12
-            make.isUserInteractionEnabled = false
+            make.isUserInteractionEnabled = true
             make.layer.borderColor = UIColor.clear.cgColor
             make.layer.borderWidth = 2
             make.layer.masksToBounds = true
-            make.isUserInteractionEnabled = true
-            addDashedBorder(to: make)
         }
 
         stackView.do { make in
@@ -79,18 +78,17 @@ final class SelectImageView: UIControl {
             make.centerY.equalToSuperview()
             make.leading.trailing.equalToSuperview().inset(20)
         }
+
+        buttonContainer.layer.addSublayer(dashedBorderLayer)
     }
 
-    private func addDashedBorder(to view: UIView) {
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.strokeColor = UIColor.accentSecondary.cgColor
-        shapeLayer.lineDashPattern = [12, 12]
-        shapeLayer.fillColor = nil
-        shapeLayer.lineWidth = 2
-        shapeLayer.frame = view.bounds
-        shapeLayer.path = UIBezierPath(roundedRect: view.bounds, cornerRadius: 12).cgPath
-
-        view.layer.addSublayer(shapeLayer)
+    private func updateDashedBorder() {
+        dashedBorderLayer.strokeColor = UIColor.accentSecondary.cgColor
+        dashedBorderLayer.lineDashPattern = [12, 12]
+        dashedBorderLayer.fillColor = nil
+        dashedBorderLayer.lineWidth = 2
+        dashedBorderLayer.frame = buttonContainer.bounds
+        dashedBorderLayer.path = UIBezierPath(roundedRect: buttonContainer.bounds, cornerRadius: 12).cgPath
     }
 
     @objc private func didTapAddPhoto() {
@@ -100,7 +98,6 @@ final class SelectImageView: UIControl {
     func addImage(image: UIImage) {
         buttonContainer.image = image
         stackView.isHidden = true
-        let containerTapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapAddPhoto))
-        buttonContainer.addGestureRecognizer(containerTapGesture)
+        buttonContainer.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapAddPhoto)))
     }
 }

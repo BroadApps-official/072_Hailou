@@ -34,7 +34,7 @@ struct GeneratedVideo: Codable {
     var name: String?
 
     var cacheURL: URL {
-        return CacheManager.shared.generatedVideosDirectory.appendingPathComponent("\(id).mp4")
+        return StorageManager.shared.generatedVideosDirectory.appendingPathComponent("\(id).mp4")
     }
 
     init(id: String, prompt: String?, isFinished: Bool, source: VideoSource, name: String? = nil) {
@@ -76,8 +76,8 @@ struct GenerationStatusResponse: Decodable {
 import Foundation
 import ApphudSDK
 
-final class NetworkService {
-    static let shared = NetworkService()
+final class DataClient {
+    static let shared = DataClient()
     private init() {}
 
     private let filtersBaseURL = "https://futuretechapps.shop/filters"
@@ -89,7 +89,7 @@ final class NetworkService {
     private let promptToken = "bb05e887-82a8-4801-b09f-2b8d10dca121"
 
     func fetchFilters() async throws -> [Filter] {
-        if let cachedFilters = CacheManager.shared.loadFiltersFromCache(), !cachedFilters.isEmpty {
+        if let cachedFilters = StorageManager.shared.loadFiltersFromCache(), !cachedFilters.isEmpty {
             guard var urlComponents = URLComponents(string: filtersBaseURL) else {
                 throw URLError(.badURL)
             }
@@ -133,7 +133,7 @@ final class NetworkService {
             let updatedFilters = try await fetchAndUpdateFilters(cachedFilters: cachedFilters, serverFilters: filtersResponse.data)
             
             if updatedFilters != cachedFilters {
-                CacheManager.shared.saveFiltersToCache(filters: updatedFilters)
+                StorageManager.shared.saveFiltersToCache(filters: updatedFilters)
                 print("Filters updated and saved to cache.")
             }
 
@@ -181,7 +181,7 @@ final class NetworkService {
         }
 
         let filters = try await fetchAndUpdateFilters(cachedFilters: [], serverFilters: filtersResponse.data)
-        CacheManager.shared.saveFiltersToCache(filters: filters)
+        StorageManager.shared.saveFiltersToCache(filters: filters)
         return filters
     }
 
@@ -207,7 +207,7 @@ final class NetworkService {
                     do {
                         let videoData = try await self.downloadVideo(from: videoURL)
                         let videoFileName = "\(updatedFilter.id)_preview.mp4"
-                        let videoPath = try CacheManager.shared.saveVideoToCache(videoData: videoData, fileName: videoFileName)
+                        let videoPath = try StorageManager.shared.saveVideoToCache(videoData: videoData, fileName: videoFileName)
                         updatedFilter.preview = videoPath
                     } catch {
                         print("Error loading video for filter \(updatedFilter.id): \(error.localizedDescription)")
@@ -345,13 +345,13 @@ final class NetworkService {
             throw NSError(domain: "NetworkService", code: -3, userInfo: [NSLocalizedDescriptionKey: "Downloading video error"])
         }
 
-        let videoFileURL = CacheManager.shared.generatedVideosDirectory.appendingPathComponent("\(generationData.id).mp4")
+        let videoFileURL = StorageManager.shared.generatedVideosDirectory.appendingPathComponent("\(generationData.id).mp4")
 
         do {
             try data.write(to: videoFileURL)
 
             let videoModel = GeneratedVideo(from: generationData, source: .api2)
-            CacheManager.shared.saveGeneratedVideoModel(videoModel)
+            StorageManager.shared.saveGeneratedVideoModel(videoModel)
 
             print("Video saved for API2: \(videoFileURL)")
             return videoFileURL
@@ -483,13 +483,13 @@ final class NetworkService {
             throw NSError(domain: "NetworkService", code: -3, userInfo: [NSLocalizedDescriptionKey: "Downloading video error"])
         }
     
-        let videoFileURL = CacheManager.shared.generatedVideosDirectory.appendingPathComponent("\(videoId).mp4")
+        let videoFileURL = StorageManager.shared.generatedVideosDirectory.appendingPathComponent("\(videoId).mp4")
 
         do {
             try data.write(to: videoFileURL)
 
             let videoModel = GeneratedVideo(id: videoId, prompt: prompt, isFinished: true, source: .api1)
-            CacheManager.shared.saveGeneratedVideoModel(videoModel)
+            StorageManager.shared.saveGeneratedVideoModel(videoModel)
             
             return videoFileURL
         } catch {

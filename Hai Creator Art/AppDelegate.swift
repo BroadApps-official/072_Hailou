@@ -3,6 +3,7 @@ import UIKit
 import StoreKit
 import AppTrackingTransparency
 import AdSupport
+import IQKeyboardManagerSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,10 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let userId = Apphud.userID()
         UserDefaults.standard.set(userId, forKey: "userId")
+        IQKeyboardManager.shared.isEnabled = true
+        IQKeyboardManager.shared.resignOnTouchOutside = true
         
         Task {
             do {
-                let filters = try await NetworkService.shared.fetchFilters()
+                let filters = try await DataClient.shared.fetchFilters()
                 let encodedData = try JSONEncoder().encode(filters)
                 UserDefaults.standard.set(encodedData, forKey: "cachedFilters")
                 NotificationCenter.default.post(name: NSNotification.Name("FiltersLoaded"), object: nil, userInfo: ["filters": filters])

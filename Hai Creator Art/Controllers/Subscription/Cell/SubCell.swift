@@ -9,9 +9,6 @@ class SubCell: UICollectionViewCell {
     private let containerView = UIView()
     private let underLabel = UILabel()
 
-    var dynamicTitle: String?
-    var dynamicPrice: String?
-
     private let saveLabel = UILabel()
     private let saveView = UIView()
 

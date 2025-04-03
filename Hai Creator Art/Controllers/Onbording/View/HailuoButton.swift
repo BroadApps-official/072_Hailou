@@ -14,8 +14,6 @@ final class HailuoButton: UIControl {
     let buttonContainer = UIView()
 
     private let stackView = UIStackView()
-    private let arrowImageView = UIImageView()
-    private let playImageView = UIImageView()
 
     // MARK: - Init
 
@@ -93,14 +91,6 @@ final class HailuoButton: UIControl {
 
     func setTitle(to title: String) {
         titleLabel.text = title
-    }
-
-    func setTextColor(_ color: UIColor) {
-        titleLabel.textColor = color
-    }
-
-    func setBackgroundColor(_ color: UIColor) {
-        buttonContainer.backgroundColor = color
     }
 
     func createOffMode() {

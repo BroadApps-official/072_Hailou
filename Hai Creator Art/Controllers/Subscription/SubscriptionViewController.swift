@@ -15,11 +15,10 @@ final class SubscriptionViewController: UIViewController {
     private let subImageView = UIImageView()
     private let shadowImageView = UIImageView()
     private let unrealView = UnrealView()
-
-    private let privacyLabel = SFPrivacyLabel()
-    private let termsOfUseLabel = SFTermsOfUse()
-    private let restoreLabel = SFRestrorePurchaseLabel()
-    private let privacyStackView = UIStackView()
+ 
+    private let privacyLabel = SFPrivacyButton()
+    private let termsOfUseLabel = SFTermsOfUseButton()
+    private let restoreLabel = SFRestorePurchaseButton()
 
     private let continueButton = HailuoButton()
     private let exitButton = UIButton(type: .system)
@@ -30,7 +29,7 @@ final class SubscriptionViewController: UIViewController {
     private var plan: Int = 0
     private let isFromOnboarding: Bool
     private var subscriptions: [Subscription] = []
-    private var purchaseManager: PurchaseManager
+    private var purchaseManager: PaymentManager
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -52,7 +51,7 @@ final class SubscriptionViewController: UIViewController {
 
     init(isFromOnboarding: Bool) {
         self.isFromOnboarding = isFromOnboarding
-        purchaseManager = PurchaseManager()
+        purchaseManager = PaymentManager()
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -102,13 +101,6 @@ final class SubscriptionViewController: UIViewController {
             make.alpha = 0
         }
 
-        privacyStackView.do { make in
-            make.axis = .horizontal
-            make.spacing = 16
-            make.alignment = .center
-            make.distribution = .fill
-        }
-
         cancelStackView.do { make in
             make.axis = .horizontal
             make.spacing = 4
@@ -123,7 +115,6 @@ final class SubscriptionViewController: UIViewController {
             make.textColor = UIColor.labelsQuaternary
         }
 
-        privacyStackView.addArrangedSubviews([privacyLabel, restoreLabel, termsOfUseLabel])
         cancelStackView.addArrangedSubviews([anytimeImageView, anytimeLabel])
 
         view.addSubviews(
@@ -131,7 +122,9 @@ final class SubscriptionViewController: UIViewController {
             shadowImageView,
             unrealView,
             collectionView,
-            privacyStackView,
+            privacyLabel,
+            restoreLabel,
+            termsOfUseLabel,
             cancelStackView,
             continueButton,
             exitButton
@@ -168,14 +161,24 @@ final class SubscriptionViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.bottom.equalTo(continueButton.snp.top).offset(-10)
         }
-
-        privacyStackView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(12)
+        
+        privacyLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(restoreLabel.snp.centerY)
+            make.leading.equalToSuperview().offset(16)
         }
-
+        
+        restoreLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(12)
+            make.centerX.equalToSuperview()
+        }      
+        
+        termsOfUseLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(restoreLabel.snp.centerY)
+            make.trailing.equalToSuperview().inset(16)
+        }
+        
         continueButton.snp.makeConstraints { make in
-            make.bottom.equalTo(privacyStackView.snp.top).offset(-18)
+            make.bottom.equalTo(restoreLabel.snp.top).offset(-18)
             make.leading.trailing.equalToSuperview().inset(16)
             make.height.equalTo(48)
         }
@@ -225,7 +228,7 @@ final class SubscriptionViewController: UIViewController {
         await withCheckedContinuation { continuation in
             var isResumed = false
 
-            purchaseManager.startPurchase(produst: selectedProduct) { success in
+            purchaseManager.startPurchase(product: selectedProduct) { success in
                 guard !isResumed else { return }
                 isResumed = true
 
@@ -293,10 +296,6 @@ final class SubscriptionViewController: UIViewController {
                     }
                 }
 
-                if let subscriptionPeriod = skProduct.subscriptionPeriod {
-                    print("Product ID: \(product.productId), Period: \(subscriptionPeriod.unit), Units: \(subscriptionPeriod.numberOfUnits)")
-                }
-
                 let weeklyPriceFinal = weeklyPrice ?? "N/A"
                 let isFirst = index == 0
                 return Subscription(
@@ -354,7 +353,7 @@ extension SubscriptionViewController: SFPrivacyDelegate {
 }
 
 // MARK: - SFRestrorePurchaseLabelDelegate
-extension SubscriptionViewController: SFRestrorePurchaseLabelDelegate {
+extension SubscriptionViewController: SFRestorePurchaseButtonDelegate {
     func didFailToRestorePurchases() {
         let alert = UIAlertController(title: L.failRestoreLabel(),
                                       message: L.failRestoreMessage(),

@@ -6,7 +6,7 @@ import UIKit
 import UniformTypeIdentifiers
 
 final class CreateViewController: UIViewController {
-    private let purchaseManager = PurchaseManager()
+    private let purchaseManager = PaymentManager()
     private var selectedIndex: Int
 
     private var selectorView: SelectorView
@@ -56,21 +56,6 @@ final class CreateViewController: UIViewController {
         updateViewVisibility()
         selectorView.delegate = self
 
-        let textFields = [promtView.textField]
-        let textViews = [promtView.textView]
-        let textFieldsToMove = [promtView.textField]
-        let textViewsToMove = [promtView.textView]
-
-        KeyboardManager.shared.configureKeyboard(
-            for: self,
-            targetView: view,
-            textFields: textFields,
-            textViews: textViews,
-            moveFor: textFieldsToMove,
-            moveFor: textViewsToMove,
-            with: .done
-        )
-
         promtView.delegate = self
         selectImageView.delegate = self
     }
@@ -93,21 +78,28 @@ final class CreateViewController: UIViewController {
             navigationItem.titleView = titleLabel
         }
     }
-
+    
     private func setupBackButton() {
-        let backButton = UIButton(type: .custom)
-        backButton.setImage(R.image.set_back_button(), for: .normal)
-        backButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
+        setupButton(image: R.image.set_back_button(), action: #selector(didTapCloseButton), isRightBarButton: false)
     }
 
     private func setupProButton() {
-        let proButton = UIButton(type: .custom)
-        proButton.setImage(R.image.set_pro_button(), for: .normal)
-        proButton.addTarget(self, action: #selector(customProButtonTapped), for: .touchUpInside)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: proButton)
+        setupButton(image: R.image.set_pro_button(), action: #selector(customProButtonTapped), isRightBarButton: true)
     }
 
+    private func setupButton(image: UIImage?, action: Selector, isRightBarButton: Bool) {
+        guard let image = image else { return }
+        let button = UIButton(type: .custom)
+        button.setImage(image, for: .normal)
+        button.addTarget(self, action: action, for: .touchUpInside)
+        let barButtonItem = UIBarButtonItem(customView: button)
+        if isRightBarButton {
+            navigationItem.rightBarButtonItem = barButtonItem
+        } else {
+            navigationItem.leftBarButtonItem = barButtonItem
+        }
+    }
+    
     private func drawSelf() {
         createButton.do { make in
             createButton.createOffMode()
@@ -258,14 +250,14 @@ final class CreateViewController: UIViewController {
             do {
                 var videoId: String?
                 if selectedIndex == 0 {
-                    videoId = try await NetworkService.shared.createVideoTask(
+                    videoId = try await DataClient.shared.createVideoTask(
                         imagePath: imagePath,
                         userId: userId,
                         appBundle: appBundle,
                         prompt: prompt ?? ""
                     )
                 } else if selectedIndex == 1 {
-                    videoId = try await NetworkService.shared.createVideoTask(
+                    videoId = try await DataClient.shared.createVideoTask(
                         imagePath: nil,
                         userId: userId,
                         appBundle: appBundle,
@@ -279,13 +271,13 @@ final class CreateViewController: UIViewController {
                 let videoData: [String: Any] = ["videoId": validVideoId, "prompt": prompt, "imagePath": imagePathToSave]
 
                 saveLastGeneratedVideoData(video: generatedVideo)
-                CacheManager.shared.saveGeneratedVideoModel(generatedVideo)
+                StorageManager.shared.saveGeneratedVideoModel(generatedVideo)
                 openGeneration()
 
                 while !(await checkVideoTaskStatus(videoId: validVideoId, generatedVideo: &generatedVideo, prompt: prompt)) { }
 
             } catch {
-                CacheManager.shared.deleteVideoModel(generatedVideo)
+                StorageManager.shared.deleteVideoModel(generatedVideo)
                 showErrorAlert()
                 removeGeneratedVideo(generatedVideo)
             }
@@ -294,26 +286,26 @@ final class CreateViewController: UIViewController {
     
     private func checkVideoTaskStatus(videoId: String, generatedVideo: inout GeneratedVideo, prompt: String?) async -> Bool {
         do {
-            let videoStatus = try await NetworkService.shared.checkVideoTaskStatus(videoId: videoId)
+            let videoStatus = try await DataClient.shared.checkVideoTaskStatus(videoId: videoId)
 
             if let isFinished = videoStatus["is_finished"] as? Bool, isFinished {
-                let videoUrl = try await NetworkService.shared.downloadVideoFile(videoId: videoId, prompt: prompt ?? "")
+                let videoUrl = try await DataClient.shared.downloadVideoFile(videoId: videoId, prompt: prompt ?? "")
                 generatedVideo.isFinished = true
-                CacheManager.shared.saveGeneratedVideoModel(generatedVideo)
+                StorageManager.shared.saveGeneratedVideoModel(generatedVideo)
                 removeGeneratedVideo(generatedVideo)
                 await navigateToResultViewController(generatedVideo: generatedVideo)
                 return true
             }
 
             if let isInvalid = videoStatus["is_invalid"] as? Bool, isInvalid {
-                CacheManager.shared.deleteVideoModel(generatedVideo)
+                StorageManager.shared.deleteVideoModel(generatedVideo)
                 removeGeneratedVideo(generatedVideo)
                 showErrorAlert()
                 return true
             }
             try await Task.sleep(nanoseconds: 5000000000)
         } catch {
-            CacheManager.shared.deleteVideoModel(generatedVideo)
+            StorageManager.shared.deleteVideoModel(generatedVideo)
             removeGeneratedVideo(generatedVideo)
             showErrorAlert()
             return true
@@ -562,14 +554,4 @@ extension CreateViewController: UIImagePickerControllerDelegate, UINavigationCon
 
 extension Notification.Name {
     static let templatesUpdated = Notification.Name("templatesUpdated")
-}
-
-extension CreateViewController {
-    @objc func keyboardWillShow(notification: NSNotification) {
-        KeyboardManager.shared.keyboardWillShow(notification as Notification)
-    }
-
-    @objc func keyboardWillHide(notification: NSNotification) {
-        KeyboardManager.shared.keyboardWillHide(notification as Notification)
-    }
 }

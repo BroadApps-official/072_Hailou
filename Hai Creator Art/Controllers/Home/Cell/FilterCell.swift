@@ -64,7 +64,7 @@ final class FilterCell: UICollectionViewCell {
     }
 
     private func setupVideo(for filter: Filter) {
-        guard let videoURL = CacheManager.shared.loadVideoURLFromCache(fileName: "\(filter.id)_preview.mp4") else {
+        guard let videoURL = StorageManager.shared.loadVideoURLFromCache(fileName: "\(filter.id)_preview.mp4") else {
             return
         }
         playVideo(from: videoURL)

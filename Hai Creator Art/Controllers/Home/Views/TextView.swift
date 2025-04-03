@@ -13,15 +13,14 @@ final class TextView: UIControl {
 
         var placeholder: String {
             switch self {
-            case .promt: L.enterPromt()
-            case .description: ""
+            case .promt: return L.enterPromt()
+            case .description: return ""
             }
         }
 
         var title: String? {
             switch self {
-            case .promt: return nil
-            case .description: return nil
+            case .promt, .description: return nil
             }
         }
     }
@@ -51,97 +50,100 @@ final class TextView: UIControl {
     // MARK: - Setup
 
     private func drawSelf() {
-        if type == .promt {
-            backgroundColor = UIColor.bgTertiary
-            layer.cornerRadius = 12
-
-            deleteButton.do { make in
-                make.backgroundColor = UIColor.accentPrimaryAlpha
-                make.setImage(R.image.delete_icon(), for: .normal)
-                make.setTitle(L.delete(), for: .normal)
-                make.setTitleColor(UIColor.labelsPrimary, for: .normal)
-                make.titleLabel?.font = UIFont.CustomFont.footnoteSemibold
-                make.layer.cornerRadius = 12
-                make.isHidden = true
-                make.addTarget(self, action: #selector(didTapDeleteButton), for: .touchUpInside)
-            }
-
-            textView.do { make in
-                make.font = UIFont.CustomFont.bodyRegular
-                make.textColor = UIColor.labelsPrimary
-                make.textAlignment = .left
-                make.backgroundColor = .clear
-                make.delegate = self
-                make.showsVerticalScrollIndicator = false
-                make.showsHorizontalScrollIndicator = false
-            }
-
-            placeholderLabel.do { make in
-                make.text = type.placeholder
-                make.font = UIFont.CustomFont.bodyRegular
-                make.textColor = UIColor.labelsQuaternary
-                make.isHidden = !textView.text.isEmpty
-                make.numberOfLines = 0
-            }
-
-            addSubviews(textView, placeholderLabel, deleteButton)
-        } else if type == .description {
-            backgroundColor = UIColor.bgTertiary
-            layer.cornerRadius = 12
-
-            textView.do { make in
-                make.font = UIFont.CustomFont.bodyRegular
-                make.textColor = UIColor.labelsPrimary
-                make.textAlignment = .left
-                make.backgroundColor = .clear
-                make.delegate = self
-                make.showsVerticalScrollIndicator = false
-                make.showsHorizontalScrollIndicator = false
-                make.isEditable = false
-                make.isUserInteractionEnabled = false
-            }
-
-            copyButton.do { make in
-                make.backgroundColor = UIColor.accentPrimaryAlpha
-                make.setTitle(L.copy(), for: .normal)
-                make.setTitleColor(UIColor.labelsPrimary, for: .normal)
-                make.titleLabel?.font = UIFont.CustomFont.footnoteSemibold
-                make.layer.cornerRadius = 12
-                make.addTarget(self, action: #selector(didTapCopyButton), for: .touchUpInside)
-            }
-
-            addSubviews(textView, copyButton)
+        backgroundColor = UIColor.bgTertiary
+        layer.cornerRadius = 12
+        
+        switch type {
+        case .promt:
+            setupPromptView()
+        case .description:
+            setupDescriptionView()
         }
     }
 
+    private func setupPromptView() {
+        deleteButton.configure {
+            $0.backgroundColor = UIColor.accentPrimaryAlpha
+            $0.setImage(R.image.delete_icon(), for: .normal)
+            $0.setTitle(L.delete(), for: .normal)
+            $0.setTitleColor(UIColor.labelsPrimary, for: .normal)
+            $0.titleLabel?.font = UIFont.CustomFont.footnoteSemibold
+            $0.layer.cornerRadius = 12
+            $0.isHidden = true
+            $0.addTarget(self, action: #selector(didTapDeleteButton), for: .touchUpInside)
+        }
+
+        textView.configure {
+            $0.font = UIFont.CustomFont.bodyRegular
+            $0.textColor = UIColor.labelsPrimary
+            $0.textAlignment = .left
+            $0.backgroundColor = .clear
+            $0.delegate = self
+            $0.showsVerticalScrollIndicator = false
+            $0.showsHorizontalScrollIndicator = false
+        }
+
+        placeholderLabel.configure {
+            $0.text = type.placeholder
+            $0.font = UIFont.CustomFont.bodyRegular
+            $0.textColor = UIColor.labelsQuaternary
+            $0.isHidden = !textView.text.isEmpty
+            $0.numberOfLines = 0
+        }
+
+        addSubviews(textView, placeholderLabel, deleteButton)
+    }
+
+    private func setupDescriptionView() {
+        textView.configure {
+            $0.font = UIFont.CustomFont.bodyRegular
+            $0.textColor = UIColor.labelsPrimary
+            $0.textAlignment = .left
+            $0.backgroundColor = .clear
+            $0.delegate = self
+            $0.showsVerticalScrollIndicator = false
+            $0.showsHorizontalScrollIndicator = false
+            $0.isEditable = false
+            $0.isUserInteractionEnabled = false
+        }
+
+        copyButton.configure {
+            $0.backgroundColor = UIColor.accentPrimaryAlpha
+            $0.setTitle(L.copy(), for: .normal)
+            $0.setTitleColor(UIColor.labelsPrimary, for: .normal)
+            $0.titleLabel?.font = UIFont.CustomFont.footnoteSemibold
+            $0.layer.cornerRadius = 12
+            $0.addTarget(self, action: #selector(didTapCopyButton), for: .touchUpInside)
+        }
+
+        addSubviews(textView, copyButton)
+    }
+
     private func setupConstraints() {
-        if type == .promt {
-            textView.snp.makeConstraints { make in
-                make.top.bottom.equalToSuperview().inset(7)
-                make.leading.trailing.equalToSuperview().inset(10)
+        textView.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview().inset(7)
+            make.leading.trailing.equalToSuperview().inset(10)
+        }
+
+        switch type {
+        case .promt:
+            placeholderLabel.snp.makeConstraints {
+                $0.top.equalTo(textView.snp.top).offset(7)
+                $0.leading.equalTo(textView.snp.leading).offset(5)
+                $0.trailing.equalTo(textView.snp.trailing).offset(-16)
             }
 
-            placeholderLabel.snp.makeConstraints { make in
-                make.top.equalTo(textView.snp.top).offset(7)
-                make.leading.equalTo(textView.snp.leading).offset(5)
-                make.trailing.equalTo(textView.snp.trailing).offset(-16)
+            deleteButton.snp.makeConstraints {
+                $0.bottom.trailing.equalToSuperview().inset(16)
+                $0.height.equalTo(34)
+                $0.width.equalTo(89)
             }
 
-            deleteButton.snp.makeConstraints { make in
-                make.bottom.trailing.equalToSuperview().inset(16)
-                make.height.equalTo(34)
-                make.width.equalTo(89)
-            }
-        } else if type == .description {
-            textView.snp.makeConstraints { make in
-                make.top.bottom.equalToSuperview().inset(7)
-                make.leading.trailing.equalToSuperview().inset(10)
-            }
-
-            copyButton.snp.makeConstraints { make in
-                make.bottom.trailing.equalToSuperview().inset(16)
-                make.height.equalTo(34)
-                make.width.equalTo(61)
+        case .description:
+            copyButton.snp.makeConstraints {
+                $0.bottom.trailing.equalToSuperview().inset(16)
+                $0.height.equalTo(34)
+                $0.width.equalTo(61)
             }
         }
     }
@@ -157,8 +159,7 @@ final class TextView: UIControl {
     }
 
     private func updateButtonVisibility() {
-        let hasText = !textView.text.isEmpty
-        deleteButton.isHidden = !hasText
+        deleteButton.isHidden = textView.text.isEmpty
     }
 
     @objc private func textFieldDidChange(_ textField: UITextField) {
@@ -196,5 +197,24 @@ extension TextView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         placeholderLabel.isHidden = !textView.text.isEmpty
         delegate?.didTapTextField(type: type)
+    }
+}
+
+// MARK: - UIButton and UILabel Extensions
+private extension UIButton {
+    func configure(_ configure: (UIButton) -> Void) {
+        configure(self)
+    }
+}
+
+private extension UILabel {
+    func configure(_ configure: (UILabel) -> Void) {
+        configure(self)
+    }
+}
+
+private extension UITextView {
+    func configure(_ configure: (UITextView) -> Void) {
+        configure(self)
     }
 }

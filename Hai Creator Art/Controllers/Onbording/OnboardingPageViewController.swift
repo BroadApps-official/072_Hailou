@@ -11,14 +11,6 @@ final class OnboardingPageViewController: UIViewController {
     private let mainLabel = UILabel()
     private let subLabel = UILabel()
     private let imageView = UIImageView()
-    private let secondImageView = UIImageView()
-    private let shadowImageView = UIImageView()
-
-    private let exitButton = UIButton(type: .system)
-
-    private let videoView = UIView()
-    private var player: AVPlayer?
-    private var playerLayer: AVPlayerLayer?
 
     // MARK: - Properties info
 

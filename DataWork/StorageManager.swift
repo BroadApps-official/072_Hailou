@@ -1,8 +1,8 @@
 import Disk
 import UIKit
 
-final class CacheManager: NSObject {
-    static let shared = CacheManager()
+final class StorageManager: NSObject {
+    static let shared = StorageManager()
     private var completion: ((Bool) -> Void)?
 
     private let fileManager = FileManager.default
@@ -94,7 +94,7 @@ final class CacheManager: NSObject {
             let videos = try Disk.retrieve(generatedVideosFileName, from: .documents, as: [GeneratedVideo].self)
 
             if let video = videos.first(where: { $0.id == model.id }) {
-                let videoFileURL = CacheManager.shared.generatedVideosDirectory.appendingPathComponent("\(video.id).mp4")
+                let videoFileURL = StorageManager.shared.generatedVideosDirectory.appendingPathComponent("\(video.id).mp4")
                 return videoFileURL
             } else {
                 print("No video whith model id: \(model.id)")
@@ -119,7 +119,7 @@ final class CacheManager: NSObject {
                 print("Video Model whith id \(video.id) not found in cache.")
             }
 
-            let videoFileURL = CacheManager.shared.generatedVideosDirectory.appendingPathComponent("\(video.id).mp4")
+            let videoFileURL = StorageManager.shared.generatedVideosDirectory.appendingPathComponent("\(video.id).mp4")
             if FileManager.default.fileExists(atPath: videoFileURL.path) {
                 try FileManager.default.removeItem(at: videoFileURL)
                 print("Video file whith id \(video.id) succesfully deleted frome cache.")

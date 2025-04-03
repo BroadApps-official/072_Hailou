@@ -82,28 +82,25 @@ final class ExampleViewController: UIViewController {
 
         goodLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
-            if UIDevice.isIphoneBelowX {
-                make.top.equalTo(addLabel.snp.bottom).offset(10)
-            } else {
-                make.top.equalTo(addLabel.snp.bottom).offset(28)
-            }
+            make.top.equalTo(addLabel.snp.bottom).offset(UIDevice.isIphoneBelowX ? 10 : 28)
         }
 
         goodDescriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(goodLabel.snp.bottom).offset(6)
             make.leading.trailing.equalToSuperview().inset(16)
         }
-
-        firstImageView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.top.equalTo(goodDescriptionLabel.snp.bottom).offset(16)
-            make.width.equalToSuperview().dividedBy(2).offset(-21.5)
-        }
-
-        secondImageView.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(16)
-            make.top.equalTo(goodDescriptionLabel.snp.bottom).offset(16)
-            make.width.equalToSuperview().dividedBy(2).offset(-21.5)
+        
+        [firstImageView, secondImageView].enumerated().forEach { index, imageView in
+            imageView.snp.makeConstraints { make in
+                let offset: CGFloat = 16
+                make.top.equalTo(goodDescriptionLabel.snp.bottom).offset(16)
+                make.width.equalToSuperview().dividedBy(2).offset(-21.5)
+                if index == 0 {
+                    make.leading.equalToSuperview().offset(offset)
+                } else {
+                    make.trailing.equalToSuperview().inset(offset)
+                }
+            }
         }
 
         badLabel.snp.makeConstraints { make in
@@ -115,17 +112,18 @@ final class ExampleViewController: UIViewController {
             make.top.equalTo(badLabel.snp.bottom).offset(6)
             make.leading.trailing.equalToSuperview().inset(16)
         }
-
-        thirdImageView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.top.equalTo(badDescriptionLabel.snp.bottom).offset(16)
-            make.width.equalToSuperview().dividedBy(2).offset(-21.5)
-        }
-
-        fourthImageView.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(16)
-            make.top.equalTo(badDescriptionLabel.snp.bottom).offset(16)
-            make.width.equalToSuperview().dividedBy(2).offset(-21.5)
+        
+        [thirdImageView, fourthImageView].enumerated().forEach { index, imageView in
+            imageView.snp.makeConstraints { make in
+                let offset: CGFloat = 16
+                make.top.equalTo(badDescriptionLabel.snp.bottom).offset(16)
+                make.width.equalToSuperview().dividedBy(2).offset(-21.5)
+                if index == 0 {
+                    make.leading.equalToSuperview().offset(offset)
+                } else {
+                    make.trailing.equalToSuperview().inset(offset)
+                }
+            }
         }
 
         useLabel.snp.makeConstraints { make in
