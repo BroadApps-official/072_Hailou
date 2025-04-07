@@ -16,7 +16,7 @@ final class LaunchScreenViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = UIColor.bgPrimary
-        mainImageView.image = R.image.launch_image()
+        mainImageView.image = UIImage(named: "launch_image")
 
         view.addSubviews(mainImageView)
 

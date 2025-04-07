@@ -7,15 +7,15 @@ final class UpperView: UIControl {
 
         var title: String {
             switch self {
-            case .image: return L.imageVideo()
-            case .text: return L.textVideo()
+            case .image: return "Image to Video"
+            case .text: return "Text to Video"
             }
         }
 
         var image: UIImage? {
             switch self {
-            case .image: return R.image.home_image_icon()
-            case .text: return R.image.home_text_icon()
+            case .image: return UIImage(named: "home_image_icon")
+            case .text: return UIImage(named: "home_text_icon")
             }
         }
     }

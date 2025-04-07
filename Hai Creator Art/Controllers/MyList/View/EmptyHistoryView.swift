@@ -21,10 +21,10 @@ final class EmptyHistoryView: UIControl {
 
     private func drawSelf() {
         backgroundColor = .clear
-        emptyHistoryImage.image = R.image.history_empty_icon()
+        emptyHistoryImage.image = UIImage(named: "history_empty_icon")
 
         firstLabel.do { make in
-            make.text = L.emptyHere()
+            make.text = "It's empty here"
             make.font = UIFont.CustomFont.title3Semibold
             make.textAlignment = .center
             make.textColor = UIColor.labelsPrimary
@@ -32,7 +32,7 @@ final class EmptyHistoryView: UIControl {
         }
 
         secondLabel.do { make in
-            make.text = L.createFirstGeneration()
+            make.text = "Create your first generation"
             make.font = UIFont.CustomFont.footnoteRegular
             make.textAlignment = .center
             make.textColor = UIColor.labelsScondary

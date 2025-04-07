@@ -43,7 +43,7 @@ final class HailuoButton: UIControl {
         }
 
         titleLabel.do { make in
-            make.text = L.next()
+            make.text = "Next"
             make.textColor = UIColor.labelsPrimaryInverted
             make.font = UIFont.CustomFont.bodySemibold
             make.isUserInteractionEnabled = false
@@ -104,7 +104,7 @@ final class HailuoButton: UIControl {
         }
 
         titleLabel.do { make in
-            make.text = L.toCreate()
+            make.text = "To create"
             make.textColor = UIColor.labelsQuintuple
             make.font = UIFont.CustomFont.bodySemibold
             make.isUserInteractionEnabled = false
@@ -122,7 +122,7 @@ final class HailuoButton: UIControl {
         }
 
         titleLabel.do { make in
-            make.text = L.toCreate()
+            make.text = "To create"
             make.textColor = UIColor.labelsPrimaryInverted
             make.font = UIFont.CustomFont.bodySemibold
             make.isUserInteractionEnabled = false

@@ -80,11 +80,11 @@ final class CreateViewController: UIViewController {
     }
     
     private func setupBackButton() {
-        setupButton(image: R.image.set_back_button(), action: #selector(didTapCloseButton), isRightBarButton: false)
+        setupButton(image: UIImage(named: "set_back_button"), action: #selector(didTapCloseButton), isRightBarButton: false)
     }
 
     private func setupProButton() {
-        setupButton(image: R.image.set_pro_button(), action: #selector(customProButtonTapped), isRightBarButton: true)
+        setupButton(image: UIImage(named: "set_pro_button"), action: #selector(customProButtonTapped), isRightBarButton: true)
     }
 
     private func setupButton(image: UIImage?, action: Selector, isRightBarButton: Bool) {
@@ -345,8 +345,8 @@ final class CreateViewController: UIViewController {
             }
 
             let alert = UIAlertController(
-                title: L.videoGenerationError(),
-                message: L.tryDifferentPhoto(),
+                title: "Video generation error",
+                message: "Please try using a different photo",
                 preferredStyle: .alert
             )
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -388,8 +388,8 @@ final class CreateViewController: UIViewController {
 
     private func generationCountReached() {
         let alert = UIAlertController(
-            title: L.generationLimitReached(),
-            message: L.generationLimitReachedMessage(),
+            title: "Generation Limit Reached",
+            message: "You can only generate a maximum of 2 images at a time. Please wait until one is finished",
             preferredStyle: .alert
         )
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -436,29 +436,29 @@ extension CreateViewController: SelectImageViewDelegate {
 
     private func showImageSelectionAlert() {
         let alert = UIAlertController(
-            title: L.selectAction(),
-            message: L.selectActionSublabel(),
+            title: "Select action",
+            message: "Add a photo so we can do a cool effect with it",
             preferredStyle: .actionSheet
         )
 
         alert.overrideUserInterfaceStyle = .dark
 
         let selectFromGalleryAction = UIAlertAction(
-            title: L.selectGallery(),
+            title: "Select from gallery",
             style: .default
         ) { _ in
             self.selectButtonTapped()
         }
 
         let takePhotoAction = UIAlertAction(
-            title: L.takePhoto(),
+            title: "Take a photo",
             style: .default
         ) { _ in
             self.photoButtonTapped()
         }
 
         let cancelAction = UIAlertAction(
-            title: L.cancel(),
+            title: "Cancel",
             style: .cancel
         )
 

@@ -36,7 +36,7 @@ final class SelectImageView: UIControl {
     // MARK: - Private methods
 
     private func drawSelf() {
-        plusImageView.image = R.image.home_plus_image_icon()
+        plusImageView.image = UIImage(named: "home_plus_image_icon")
 
         buttonContainer.do { make in
             make.backgroundColor = UIColor.bgTertiary
@@ -55,7 +55,7 @@ final class SelectImageView: UIControl {
         }
 
         plusLabel.do { make in
-            make.text = L.clickImage()
+            make.text = "Click to upload an image"
             make.font = UIFont.CustomFont.bodyRegular
             make.textColor = UIColor.labelsTertiary
             make.textAlignment = .center

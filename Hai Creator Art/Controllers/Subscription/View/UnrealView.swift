@@ -31,7 +31,7 @@ final class UnrealView: UIControl {
         backgroundColor = .clear
         [firstImageView, secondImageView, thirdImageView].forEach { imageView in
             imageView.do { make in
-                make.image = R.image.sub_unreal_icon()
+                make.image = UIImage(named: "sub_unreal_icon")
             }
         }
 
@@ -50,12 +50,12 @@ final class UnrealView: UIControl {
                 make.textAlignment = .center
             }
         }
-        firstLabel.text = L.unrealFirstLabel()
-        secondLabel.text = L.unrealSecondLabel()
-        thirdLabel.text = L.unrealThirdLabel()
+        firstLabel.text = "Access to all effects"
+        secondLabel.text = "Unlimited generation"
+        thirdLabel.text = "Access to all functions"
 
         mainLabel.do { make in
-            make.text = L.unrealMainLabel()
+            make.text = "Unreal videos with PRO"
             make.textColor = UIColor.labelsPrimary
             make.numberOfLines = 0
             make.textAlignment = .center

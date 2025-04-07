@@ -43,7 +43,7 @@ final class SettingsView: UIControl {
     // MARK: - Draw
 
     private func drawSelf() {
-        arrowImageView.image = R.image.set_arrow_icon()
+        arrowImageView.image = UIImage(named: "set_arrow_icon")
         backgroundView.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapSettingsView))
         backgroundView.addGestureRecognizer(tapGesture)

@@ -13,7 +13,7 @@ final class TextView: UIControl {
 
         var placeholder: String {
             switch self {
-            case .promt: return L.enterPromt()
+            case .promt: return "Enter here a detailed description of what you want to see in your video"
             case .description: return ""
             }
         }
@@ -64,8 +64,8 @@ final class TextView: UIControl {
     private func setupPromptView() {
         deleteButton.configure {
             $0.backgroundColor = UIColor.accentPrimaryAlpha
-            $0.setImage(R.image.delete_icon(), for: .normal)
-            $0.setTitle(L.delete(), for: .normal)
+            $0.setImage(UIImage(named: "delete_icon"), for: .normal)
+            $0.setTitle("Delete", for: .normal)
             $0.setTitleColor(UIColor.labelsPrimary, for: .normal)
             $0.titleLabel?.font = UIFont.CustomFont.footnoteSemibold
             $0.layer.cornerRadius = 12
@@ -109,7 +109,7 @@ final class TextView: UIControl {
 
         copyButton.configure {
             $0.backgroundColor = UIColor.accentPrimaryAlpha
-            $0.setTitle(L.copy(), for: .normal)
+            $0.setTitle("Copy", for: .normal)
             $0.setTitleColor(UIColor.labelsPrimary, for: .normal)
             $0.titleLabel?.font = UIFont.CustomFont.footnoteSemibold
             $0.layer.cornerRadius = 12

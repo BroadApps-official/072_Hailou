@@ -23,7 +23,7 @@ class SFPrivacyButton: UIButton {
     }
 
     private func setupButton() {
-        setTitle(L.privacyPolicy(), for: .normal)
+        setTitle("Privacy Policy", for: .normal)
         titleLabel?.font = UIFont.CustomFont.caption2Regular
         setTitleColor(mainColor, for: .normal)
         backgroundColor = .clear

@@ -78,7 +78,7 @@ final class OnboardingViewController: UIViewController {
         }
 
         laterLabel.do { make in
-            make.text = L.maybeLater()
+            make.text = "Maybe later"
             make.font = UIFont.CustomFont.subheadlineRegular
             make.textColor = UIColor.textSecondary
             make.isHidden = true

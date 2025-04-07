@@ -21,7 +21,7 @@ final class TabBarController: UITabBarController {
         )
 
         homeVC.tabBarItem = UITabBarItem(
-            title: L.home(),
+            title: "Home",
             image: UIImage(systemName: "heart.fill"),
             tag: 0
         )
@@ -33,7 +33,7 @@ final class TabBarController: UITabBarController {
         )
 
         historyVC.tabBarItem = UITabBarItem(
-            title: L.history(),
+            title: "History",
             image: UIImage(systemName: "doc.on.doc.fill"),
             tag: 2
         )
@@ -69,7 +69,7 @@ final class TabBarController: UITabBarController {
 
     private func addCenterButton() {
         let centerButton = UIButton(type: .custom)
-        centerButton.setImage(R.image.tab_add_button(), for: .normal)
+        centerButton.setImage(UIImage(named: "tab_add_button"), for: .normal)
         centerButton.backgroundColor = UIColor.colorsSecondary
         centerButton.layer.cornerRadius = 30
         centerButton.addTarget(self, action: #selector(centerButtonTapped), for: .touchUpInside)

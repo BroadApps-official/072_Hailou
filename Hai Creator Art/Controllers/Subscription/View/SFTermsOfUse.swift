@@ -23,7 +23,7 @@ class SFTermsOfUseButton: UIButton {
     }
 
     private func setupButton() {
-        setTitle(L.termsOfUse(), for: .normal)
+        setTitle("Terms of Use", for: .normal)
         titleLabel?.font = UIFont.CustomFont.caption2Regular
         setTitleColor(mainColor, for: .normal)
         backgroundColor = .clear

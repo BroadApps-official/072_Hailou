@@ -46,10 +46,10 @@ final class SelectorView: UIControl {
         containerStackView.spacing = 0
         containerStackView.distribution = .fillEqually
 
-        imageLabel.text = L.imageVideo()
+        imageLabel.text = "Image to Video"
         imageLabel.textAlignment = .center
 
-        textLabel.text = L.textVideo()
+        textLabel.text = "Text to Video"
         textLabel.textAlignment = .center
 
         imageView.addSubview(imageLabel)

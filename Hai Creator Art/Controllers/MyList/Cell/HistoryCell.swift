@@ -31,7 +31,7 @@ final class HistoryCell: UICollectionViewCell {
         }
 
         generationLabel.do { make in
-            make.text = L.videoGenerationTimeCell()
+            make.text = "Generation usually takes about a minute"
             make.font = UIFont.CustomFont.calloutRegular
             make.textAlignment = .center
             make.textColor = UIColor.labelsPrimary

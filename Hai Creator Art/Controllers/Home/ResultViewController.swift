@@ -79,7 +79,7 @@ final class ResultViewController: UIViewController {
     }
 
     private func drawSelf() {
-        saveButton.setTitle(to: L.save())
+        saveButton.setTitle(to: "Save")
         promptView.textView.isScrollEnabled = false
         promptView.alpha = model.source == .api2 ? 0.0 : 1.0
         scrollView.showsVerticalScrollIndicator = false
@@ -91,7 +91,7 @@ final class ResultViewController: UIViewController {
         }
 
         playButton.do { make in
-            make.setImage(R.image.main_play_icon(), for: .normal)
+            make.setImage(UIImage(named: "main_play_icon"), for: .normal)
             make.tintColor = .white
             make.addTarget(self, action: #selector(didTapPlayButton), for: .touchUpInside)
         }
@@ -203,7 +203,7 @@ final class ResultViewController: UIViewController {
 
     private func setupBackButton() {
         backButton.do { make in
-            make.setImage(R.image.set_back_button()?.withRenderingMode(.alwaysOriginal), for: .normal)
+            make.setImage(UIImage(named: "set_back_button")?.withRenderingMode(.alwaysOriginal), for: .normal)
             make.semanticContentAttribute = .forceLeftToRight
             make.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
         }
@@ -214,19 +214,19 @@ final class ResultViewController: UIViewController {
 
     private func setupMenuButton() {
         menuButton.do { make in
-            make.setImage(R.image.result_menu_button()?.withRenderingMode(.alwaysOriginal), for: .normal)
+            make.setImage(UIImage(named: "result_menu_button")?.withRenderingMode(.alwaysOriginal), for: .normal)
             make.addTarget(self, action: #selector(didTapMenuButton), for: .touchUpInside)
         }
 
-        let shareAction = UIAction(title: L.shareButton(), image: UIImage(systemName: "square.and.arrow.up")) { _ in
+        let shareAction = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { _ in
             self.shareVideo()
         }
 
-        let saveToFileAction = UIAction(title: L.saveFiles(), image: UIImage(systemName: "folder.badge.plus")) { _ in
+        let saveToFileAction = UIAction(title: "Save to files", image: UIImage(systemName: "folder.badge.plus")) { _ in
             self.saveToFiles()
         }
 
-        let deleteAction = UIAction(title: L.delete(), image: UIImage(systemName: "trash"), attributes: .destructive) { _ in
+        let deleteAction = UIAction(title: "Delete", image: UIImage(systemName: "trash"), attributes: .destructive) { _ in
             self.deleteVideo()
         }
 
@@ -322,9 +322,9 @@ final class ResultViewController: UIViewController {
 
     @objc private func deleteVideo() {
         showAlert(
-            title: L.deleteVideo(),
-            message: L.deleteVideoMessage(),
-            actionTitles: [L.delete(), L.cancel()],
+            title: "Delete a video",
+            message: "Are you sure you want to delete this video?",
+            actionTitles: ["Delete", "Cancel"],
             actions: [
                 { StorageManager.shared.deleteVideoModel(self.model); self.dismiss(animated: true, completion: nil) }
             ]
@@ -347,7 +347,7 @@ extension ResultViewController: UIDocumentPickerDelegate {
 extension ResultViewController {
     private func videoGallerySuccessAlert() {
         showAlert(
-            title: L.videoSavedGallery(),
+            title: "Video saved to gallery",
             message: nil,
             actionTitles: ["OK"],
             actions: [nil]
@@ -356,15 +356,15 @@ extension ResultViewController {
 
     private func videoGalleryErrorAlert() {
         showAlert(
-            title: L.errorVideoGallery(),
-            message: L.errorVideoGalleryMessage(),
-            actionTitles: [L.cancel(), L.tryAgain()],
+            title: "Error, video not saved to gallery",
+            message: "Something went wrong or the server is not responding. Try again or do it later.",
+            actionTitles: ["Cancel", "Try Again"],
             actions: [{self.saveButtonTapped()}])
     }
 
     private func videoFilesSuccessAlert() {
         showAlert(
-            title: L.videoSavedFiles(),
+            title: "Video saved to files",
             message: nil,
             actionTitles: ["OK"],
             actions: [nil]
@@ -373,9 +373,9 @@ extension ResultViewController {
 
     private func videoFilesErrorAlert() {
         showAlert(
-            title: L.errorVideoFiles(),
-            message: L.errorVideoGalleryMessage(),
-            actionTitles: [L.cancel(), L.tryAgain()],
+            title: "Error, video not saved to files",
+            message: "Something went wrong or the server is not responding. Try again or do it later.",
+            actionTitles: ["Cancel", "Try Again"],
             actions: [{self.saveToFiles()}])
     }
 }
@@ -387,7 +387,7 @@ extension ResultViewController: TextViewDelegate {
 
     func didTapCopyButton() {
         showAlert(
-            title: L.textCopied(),
+            title: "Text Copied",
             message: nil,
             actionTitles: ["OK"],
             actions: [nil]

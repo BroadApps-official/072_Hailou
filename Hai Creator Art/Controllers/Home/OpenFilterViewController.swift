@@ -85,8 +85,8 @@ final class OpenFilterViewController: UIViewController {
     }
     
     private func drawself() {
-        selectorView.updateFirstLabel(L.singlePhoto())
-        selectorView.updateSecondLabel(L.groupPhoto())
+        selectorView.updateFirstLabel("Single photo")
+        selectorView.updateSecondLabel("Group photo")
 
         let template = model
         setupVideo(for: model)
@@ -188,7 +188,7 @@ final class OpenFilterViewController: UIViewController {
 
     private func setupBackButton() {
         let backButton = UIButton(type: .custom)
-        backButton.setImage(R.image.set_back_button(), for: .normal)
+        backButton.setImage(UIImage(named: "set_back_button"), for: .normal)
         backButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
     }
@@ -387,8 +387,8 @@ final class OpenFilterViewController: UIViewController {
 
     private func generationError() {
         let alert = UIAlertController(
-            title: L.videoGenerationError(),
-            message: L.tryDifferentPhoto(),
+            title: "Video generation error",
+            message: "Please try using a different photo",
             preferredStyle: .alert
         )
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -449,8 +449,8 @@ final class OpenFilterViewController: UIViewController {
 
     private func generationCountReached() {
         let alert = UIAlertController(
-            title: L.generationLimitReached(),
-            message: L.generationLimitReachedMessage(),
+            title: "Generation Limit Reached",
+            message: "You can only generate a maximum of 2 images at a time. Please wait until one is finished",
             preferredStyle: .alert
         )
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -535,29 +535,29 @@ extension OpenFilterViewController: SelectImageViewDelegate {
             }
 
             let alert = UIAlertController(
-                title: L.selectAction(),
-                message: L.selectActionSublabel(),
+                title: "Select action",
+                message: "Add a photo so we can do a cool effect with it",
                 preferredStyle: .actionSheet
             )
 
             alert.overrideUserInterfaceStyle = .dark
 
             let selectFromGalleryAction = UIAlertAction(
-                title: L.selectGallery(),
+                title: "Select from gallery",
                 style: .default
             ) { _ in
                 self.selectButtonTapped(sender: sender)
             }
 
             let takePhotoAction = UIAlertAction(
-                title: L.takePhoto(),
+                title: "Take a photo",
                 style: .default
             ) { _ in
                 self.photoButtonTapped(sender: sender)
             }
 
             let cancelAction = UIAlertAction(
-                title: L.cancel(),
+                title: "Cancel",
                 style: .cancel
             )
 

@@ -89,13 +89,13 @@ final class SubscriptionViewController: UIViewController {
     // MARK: - Private methods
 
     private func drawSelf() {
-        subImageView.image = R.image.sub_upper_image()
-        shadowImageView.image = R.image.sub_shadow_image()
-        continueButton.setTitle(to: L.continue())
-        anytimeImageView.image = R.image.sub_anytime_icon()
+        subImageView.image = UIImage(named: "sub_upper_image")
+        shadowImageView.image = UIImage(named: "sub_shadow_image")
+        continueButton.setTitle(to: "Continue")
+        anytimeImageView.image = UIImage(named: "sub_anytime_icon")
 
         exitButton.do { make in
-            make.setImage(R.image.sub_exit_button(), for: .normal)
+            make.setImage(UIImage(named: "sub_exit_button"), for: .normal)
             make.tintColor = .white
             make.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
             make.alpha = 0
@@ -109,7 +109,7 @@ final class SubscriptionViewController: UIViewController {
         }
 
         anytimeLabel.do { make in
-            make.text = L.cancelAnytime()
+            make.text = "Cancel anytime"
             make.textAlignment = .left
             make.font = UIFont.CustomFont.caption1Regular
             make.textColor = UIColor.labelsQuaternary
@@ -355,8 +355,8 @@ extension SubscriptionViewController: SFPrivacyDelegate {
 // MARK: - SFRestrorePurchaseLabelDelegate
 extension SubscriptionViewController: SFRestorePurchaseButtonDelegate {
     func didFailToRestorePurchases() {
-        let alert = UIAlertController(title: L.failRestoreLabel(),
-                                      message: L.failRestoreMessage(),
+        let alert = UIAlertController(title: "No Subscription Found",
+                                      message: "We couldn’t find an active subscription for your account",
                                       preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default)
         alert.addAction(okAction)

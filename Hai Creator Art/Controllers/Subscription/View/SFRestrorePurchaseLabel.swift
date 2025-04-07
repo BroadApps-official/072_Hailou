@@ -25,7 +25,7 @@ class SFRestorePurchaseButton: UIButton {
     }
     
     private func setupButton() {
-        setTitle(L.restoreLabel(), for: .normal)
+        setTitle("Restore Purchases", for: .normal)
         titleLabel?.font = UIFont.CustomFont.caption1Regular
         setTitleColor(mainColor, for: .normal)
         backgroundColor = .clear

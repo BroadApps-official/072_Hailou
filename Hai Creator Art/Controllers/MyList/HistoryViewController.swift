@@ -54,7 +54,7 @@ final class HistoryViewController: UIViewController {
         setupSettingsButton()
 
         let titleLabel = UILabel()
-        titleLabel.text = L.history()
+        titleLabel.text = "History"
         titleLabel.textColor = .white
         titleLabel.font = UIFont.CustomFont.largeTitleBold
         titleLabel.textAlignment = .left
@@ -111,11 +111,11 @@ final class HistoryViewController: UIViewController {
 
         customButtonView.layer.insertSublayer(gradientLayer, at: 0)
 
-        let iconImageView = UIImageView(image: R.image.home_pro_icon())
+        let iconImageView = UIImageView(image: UIImage(named: "home_pro_icon"))
         iconImageView.contentMode = .scaleAspectFit
 
         let label = UILabel()
-        label.text = L.getPro().uppercased()
+        label.text = "Get Pro".uppercased()
         label.textColor = UIColor.labelsPrimaryInverted
         label.font = UIFont.CustomFont.subheadlineSemibold
 
@@ -168,7 +168,7 @@ final class HistoryViewController: UIViewController {
 
     private func setupSettingsButton() {
         let settingsButton = UIButton(type: .custom)
-        settingsButton.setImage(R.image.home_set_icon(), for: .normal)
+        settingsButton.setImage(UIImage(named: "home_set_icon"), for: .normal)
         settingsButton.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
         settingsButton.snp.makeConstraints { make in
             make.size.equalTo(32)
@@ -256,8 +256,8 @@ extension HistoryViewController: UICollectionViewDataSource, UICollectionViewDel
             present(navigationController, animated: true, completion: nil)
         } else {
             let alert = UIAlertController(
-                title: L.videoNotReady(),
-                message: L.videoNotReadyMessage(),
+                title: "Video Not Ready",
+                message: "This video is still being processed and cannot be opened yet.",
                 preferredStyle: .alert
             )
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))

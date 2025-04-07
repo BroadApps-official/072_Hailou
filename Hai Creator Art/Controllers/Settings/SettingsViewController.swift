@@ -97,14 +97,14 @@ final class SettingsViewController: UIViewController {
     }
 
     private func setupTitle() {
-        navigationItem.title = L.settings()
+        navigationItem.title = "Settings"
 
         if let titleLabel = navigationController?.navigationBar.topItem?.titleView as? UILabel {
             titleLabel.font = UIFont.CustomFont.title1Bold
             titleLabel.textColor = .white
         } else {
             let titleLabel = UILabel()
-            titleLabel.text = L.settings()
+            titleLabel.text = "Settings"
             titleLabel.font = UIFont.CustomFont.title1Bold
             titleLabel.textColor = .white
             navigationItem.titleView = titleLabel
@@ -113,27 +113,27 @@ final class SettingsViewController: UIViewController {
 
     private func setupBackButton() {
         let backButton = UIButton(type: .custom)
-        backButton.setImage(R.image.set_back_button(), for: .normal)
+        backButton.setImage(UIImage(named: "set_back_button"), for: .normal)
         backButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
     }
 
     private func setupProButton() {
         let proButton = UIButton(type: .custom)
-        proButton.setImage(R.image.set_pro_button(), for: .normal)
+        proButton.setImage(UIImage(named: "set_pro_button"), for: .normal)
         proButton.addTarget(self, action: #selector(customProButtonTapped), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: proButton)
     }
 
     private func drawSelf() {
-        rateView.configureSettingsView(icon: R.image.set_rate_icon(), title: L.rateApp())
-        upgradeView.configureSettingsView(icon: R.image.set_upgrade_icon(), title: L.upgrade())
-        cacheView.configureSettingsView(icon: R.image.set_cashe_icon(), title: L.clearCache())
-        restoreView.configureSettingsView(icon: R.image.set_restore_icon(), title: L.restore())
-        contactView.configureSettingsView(icon: R.image.set_contact_icon(), title: L.contact())
-        privacyView.configureSettingsView(icon: R.image.set_privacy_icon(), title: L.privacy())
-        usageView.configureSettingsView(icon: R.image.set_usage_icon(), title: L.usage())
-        notificationsView.configureNotificationsView(icon: R.image.set_notifications_icon(), title: L.notifications())
+        rateView.configureSettingsView(icon: UIImage(named: "set_rate_icon"), title: "Rate app")
+        upgradeView.configureSettingsView(icon: UIImage(named: "set_upgrade_icon"), title: "Upgrade plan")
+        cacheView.configureSettingsView(icon: UIImage(named: "set_cashe_icon"), title: "Clear cache")
+        restoreView.configureSettingsView(icon: UIImage(named: "set_restore_icon"), title: "Restore purchases")
+        contactView.configureSettingsView(icon: UIImage(named: "set_contact_icon"), title: "Contact us")
+        privacyView.configureSettingsView(icon: UIImage(named: "set_privacy_icon"), title: "Privacy Policy")
+        usageView.configureSettingsView(icon: UIImage(named: "set_usage_icon"), title: "Usage Policy")
+        notificationsView.configureNotificationsView(icon: UIImage(named: "set_notifications_icon"), title: "Notifications")
         
         [firstStackView, secondStackView, thirdStackView].forEach { stackView in
             stackView.do { make in
@@ -152,16 +152,16 @@ final class SettingsViewController: UIViewController {
 
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             versionLabel.do { make in
-                make.text = "\(L.appVersion()): \(version)"
+                make.text = "\("App Version"): \(version)"
                 make.font = UIFont.CustomFont.footnoteRegular
                 make.textColor = UIColor.labelsTertiary
                 make.textAlignment = .center
             }
         }
 
-        supportLabel.text = L.supportUs()
-        purchaseLabel.text = L.actions()
-        infoLabel.text = L.info()
+        supportLabel.text = "Support us"
+        purchaseLabel.text = "Purchases & Actions"
+        infoLabel.text = "Info & legal"
 
         firstStackView.addArrangedSubviews(
             [rateView]
@@ -304,8 +304,8 @@ final class SettingsViewController: UIViewController {
                 debugPrint("restorePurchase succeed.")
             } else {
                 debugPrint("restorePurchase failed.")
-                let alert = UIAlertController(title: L.failRestoreLabel(),
-                                              message: L.failRestoreMessage(),
+                let alert = UIAlertController(title: "No Subscription Found",
+                                              message: "We couldn’t find an active subscription for your account",
                                               preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .default)
                 alert.addAction(okAction)
@@ -326,13 +326,13 @@ extension SettingsViewController: MFMailComposeViewControllerDelegate {
 // MARK: - SKPaymentQueueDelegate
 extension SettingsViewController: SKPaymentQueueDelegate {
     func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
-        let alert = UIAlertController(title: L.restoreLabel(), message: L.purchasesRestored(), preferredStyle: .alert)
+        let alert = UIAlertController(title: "Restore Purchases", message: "Your purchases have been restored.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
 
     func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
-        let alert = UIAlertController(title: L.error(), message: L.errorRestore(), preferredStyle: .alert)
+        let alert = UIAlertController(title: "Error", message: "There was an error restoring your purchases. Please try again.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
@@ -351,8 +351,8 @@ extension SettingsViewController: SettingsViewDelegate {
                 if UIApplication.shared.canOpenURL(url) {
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 } else {
-                    let alert = UIAlertController(title: L.error(),
-                                                  message: L.unableOpen(),
+                    let alert = UIAlertController(title: "Error",
+                                                  message: "Unable to open App Store",
                                                   preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default)
                     alert.addAction(okAction)
@@ -365,8 +365,8 @@ extension SettingsViewController: SettingsViewDelegate {
             subscriptionVC.modalPresentationStyle = .fullScreen
             present(subscriptionVC, animated: true, completion: nil)
         case .cache:
-            let alertController = UIAlertController(title: L.deleteData(),
-                                                    message: L.wantDeleteData(),
+            let alertController = UIAlertController(title: "Delete Data",
+                                                    message: "Are you sure you want to delete all data?",
                                                     preferredStyle: .alert)
 
             let confirmAction = UIAlertAction(title: "Yes", style: .destructive) { _ in

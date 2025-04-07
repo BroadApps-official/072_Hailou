@@ -34,14 +34,14 @@ final class GenerationTimeViewController: UIViewController {
 
     private func drawSelf() {
         firstLabel.do { make in
-            make.text = L.creatingVideo()
+            make.text = "Creating a video"
             make.font = UIFont.CustomFont.title3Semibold
             make.textColor = UIColor.labelsPrimary
             make.textAlignment = .center
         }
 
         secondLabel.do { make in
-            make.text = L.waitBit()
+            make.text = "Wait a bit, the video will be ready soon"
             make.font = UIFont.CustomFont.footnoteRegular
             make.textColor = UIColor.labelsScondary
             make.textAlignment = .center

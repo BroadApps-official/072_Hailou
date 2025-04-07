@@ -45,10 +45,10 @@ final class OnboardingPageViewController: UIViewController {
     // MARK: - Draw
 
     private func drawEffects() {
-        imageView.image = R.image.onb_effects_image()
+        imageView.image = UIImage(named: "onb_effects_image")
 
         mainLabel.do { make in
-            make.text = L.effectsLabel()
+            make.text = "Lots of effects"
             make.textColor = UIColor.labelsPrimary
             make.font = UIFont.CustomFont.largeTitleBold
             make.textAlignment = .center
@@ -56,7 +56,7 @@ final class OnboardingPageViewController: UIViewController {
         }
 
         subLabel.do { make in
-            make.text = L.effectsSubLabel()
+            make.text = "Try all the effects and create a unique masterpiece."
             make.textColor = UIColor.labelsTertiary
             make.font = UIFont.CustomFont.bodyRegular
             make.textAlignment = .center
@@ -90,10 +90,10 @@ final class OnboardingPageViewController: UIViewController {
     }
 
     private func drawPhoto() {
-        imageView.image = R.image.onb_photo_image()
+        imageView.image = UIImage(named: "onb_photo_image")
 
         mainLabel.do { make in
-            make.text = L.photoLabel()
+            make.text = "Add photos"
             make.textColor = UIColor.labelsPrimary
             make.font = UIFont.CustomFont.largeTitleBold
             make.textAlignment = .center
@@ -101,7 +101,7 @@ final class OnboardingPageViewController: UIViewController {
         }
 
         subLabel.do { make in
-            make.text = L.photoSubLabel()
+            make.text = "Create a video with your image in a few taps"
             make.textColor = UIColor.labelsTertiary
             make.font = UIFont.CustomFont.bodyRegular
             make.textAlignment = .center
@@ -135,10 +135,10 @@ final class OnboardingPageViewController: UIViewController {
     }
 
     private func drawRequest() {
-        imageView.image = R.image.onb_request_image()
+        imageView.image = UIImage(named: "onb_request_image")
 
         mainLabel.do { make in
-            make.text = L.requestLabel()
+            make.text = "Create a request"
             make.textColor = UIColor.labelsPrimary
             make.font = UIFont.CustomFont.largeTitleBold
             make.textAlignment = .center
@@ -146,7 +146,7 @@ final class OnboardingPageViewController: UIViewController {
         }
 
         subLabel.do { make in
-            make.text = L.requestSubLabel()
+            make.text = "Generate an image using AI to the maximum"
             make.textColor = UIColor.labelsTertiary
             make.font = UIFont.CustomFont.bodyRegular
             make.textAlignment = .center
@@ -180,10 +180,10 @@ final class OnboardingPageViewController: UIViewController {
     }
 
     private func drawRate() {
-        imageView.image = R.image.onb_rate_image()
+        imageView.image = UIImage(named: "onb_rate_image")
 
         mainLabel.do { make in
-            make.text = L.rateLabel()
+            make.text = "Rate our app in the AppStore"
             make.textColor = UIColor.labelsPrimary
             make.font = UIFont.CustomFont.largeTitleBold
             make.textAlignment = .center
@@ -212,10 +212,10 @@ final class OnboardingPageViewController: UIViewController {
     }
 
     private func drawNotifications() {
-        imageView.image = R.image.onb_notifications_image()
+        imageView.image = UIImage(named: "onb_notifications_image")
 
         mainLabel.do { make in
-            make.text = L.notificationsLabel()
+            make.text = "Don't miss new trends"
             make.textColor = UIColor.labelsPrimary
             make.font = UIFont.CustomFont.largeTitleBold
             make.textAlignment = .center
@@ -223,7 +223,7 @@ final class OnboardingPageViewController: UIViewController {
         }
 
         subLabel.do { make in
-            make.text = L.notificationsSubLabel()
+            make.text = "Allow notifications"
             make.textColor = UIColor.labelsTertiary
             make.font = UIFont.CustomFont.bodyRegular
             make.textAlignment = .center

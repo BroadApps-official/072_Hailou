@@ -22,13 +22,13 @@ final class ExampleViewController: UIViewController {
     }
 
     private func setupViews() {
-        firstImageView.image = R.image.example_first_image()
-        secondImageView.image = R.image.example_second_image()
-        thirdImageView.image = R.image.example_third_image()
-        fourthImageView.image = R.image.example_fourth_image()
+        firstImageView.image = UIImage(named: "example_first_image")
+        secondImageView.image = UIImage(named: "example_second_image")
+        thirdImageView.image = UIImage(named: "example_third_image")
+        fourthImageView.image = UIImage(named: "example_fourth_image")
 
         addLabel.do { make in
-            make.text = L.addPhoto()
+            make.text = "Add photo"
             make.font = UIFont.CustomFont.title3Semibold
             make.textColor = UIColor.white
             make.textAlignment = .center
@@ -42,8 +42,8 @@ final class ExampleViewController: UIViewController {
             }
         }
 
-        goodLabel.text = L.goodExamples()
-        badLabel.text = L.badExamples()
+        goodLabel.text = "Good examples"
+        badLabel.text = "Bad examples"
 
         [goodDescriptionLabel, badDescriptionLabel].forEach { label in
             label.do { make in
@@ -54,11 +54,11 @@ final class ExampleViewController: UIViewController {
             }
         }
 
-        goodDescriptionLabel.text = L.goodDescription()
-        badDescriptionLabel.text = L.badDescription()
+        goodDescriptionLabel.text = "The photo was taken full-face (the man is standing straight), hands are visible."
+        badDescriptionLabel.text = "Group photo, covered face, nudity, very large face, blurred face, very small face, hands not visible or covered."
 
         useLabel.do { make in
-            make.text = L.useLabel()
+            make.text = "Use images where the face and hands are visible for the best result."
             make.font = UIFont.CustomFont.caption2Semibold
             make.textColor = UIColor.labelsTertiary
             make.textAlignment = .center

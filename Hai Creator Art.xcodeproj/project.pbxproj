@@ -8,12 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		E7011C372C1C8AA400B3A4D7 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7011C362C1C8AA400B3A4D7 /* UIDevice.swift */; };
-		E70B0D072D6DFD3A00530DD0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E70B0D062D6DFD3A00530DD0 /* Localizable.strings */; };
 		E71D00752CE3676C0011C8AF /* PaymentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71D00742CE3676C0011C8AF /* PaymentManager.swift */; };
 		E73F6A562D9AF3AA004FAB43 /* GenerationTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73F6A552D9AF3AA004FAB43 /* GenerationTimeViewController.swift */; };
 		E73F6A5A2D9AF42D004FAB43 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = E73F6A592D9AF42D004FAB43 /* Lottie */; };
 		E73F6A5D2D9AF4F3004FAB43 /* LottieAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = E73F6A5C2D9AF4F3004FAB43 /* LottieAnimation.json */; };
-		E73F6A682D9C2FC7004FAB43 /* RswiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = E73F6A672D9C2FC7004FAB43 /* RswiftLibrary */; };
 		E73FD54F2CCA68E200F7C940 /* UIFontExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73FD54E2CCA68E200F7C940 /* UIFontExtention.swift */; };
 		E73FD5522CCAA1CD00F7C940 /* SubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73FD5512CCAA1CD00F7C940 /* SubscriptionViewController.swift */; };
 		E73FD5572CCAC2E900F7C940 /* UnrealView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73FD5562CCAC2E900F7C940 /* UnrealView.swift */; };
@@ -46,7 +44,6 @@
 		E7AAC1C02D89AAC400C83047 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AAC1BF2D89AAC400C83047 /* HistoryViewController.swift */; };
 		E7AAC1C42D89AB8C00C83047 /* EmptyHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AAC1C32D89AB8C00C83047 /* EmptyHistoryView.swift */; };
 		E7AAC1D22D8A461C00C83047 /* SubCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AAC1D12D8A461C00C83047 /* SubCell.swift */; };
-		E7B113962C1495E100E96820 /* Sources.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B113952C1495E100E96820 /* Sources.swift */; };
 		E7B113982C149CC000E96820 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B113972C149CC000E96820 /* OnboardingViewController.swift */; };
 		E7B1139A2C14AE2B00E96820 /* OnboardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B113992C14AE2B00E96820 /* OnboardingPageViewController.swift */; };
 		E7B1139E2C14AED600E96820 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B1139D2C14AED600E96820 /* UIColorExtension.swift */; };
@@ -63,7 +60,6 @@
 
 /* Begin PBXFileReference section */
 		E7011C362C1C8AA400B3A4D7 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
-		E70B0D062D6DFD3A00530DD0 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		E71D00742CE3676C0011C8AF /* PaymentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentManager.swift; sourceTree = "<group>"; };
 		E73F6A552D9AF3AA004FAB43 /* GenerationTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerationTimeViewController.swift; sourceTree = "<group>"; };
 		E73F6A5C2D9AF4F3004FAB43 /* LottieAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LottieAnimation.json; sourceTree = "<group>"; };
@@ -98,7 +94,6 @@
 		E7AAC1BF2D89AAC400C83047 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		E7AAC1C32D89AB8C00C83047 /* EmptyHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyHistoryView.swift; sourceTree = "<group>"; };
 		E7AAC1D12D8A461C00C83047 /* SubCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCell.swift; sourceTree = "<group>"; };
-		E7B113952C1495E100E96820 /* Sources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources.swift; sourceTree = "<group>"; };
 		E7B113972C149CC000E96820 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		E7B113992C14AE2B00E96820 /* OnboardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPageViewController.swift; sourceTree = "<group>"; };
 		E7B1139D2C14AED600E96820 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
@@ -117,7 +112,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E73F6A682D9C2FC7004FAB43 /* RswiftLibrary in Frameworks */,
 				E73F6A5A2D9AF42D004FAB43 /* Lottie in Frameworks */,
 				E75E7D0D2D50C67A00F293F1 /* ApphudSDK in Frameworks */,
 				E75E7D0A2D50C66B00F293F1 /* SnapKit in Frameworks */,
@@ -200,7 +194,6 @@
 				E71D003D2CDA5E970011C8AF /* DataWork */,
 				E71D00692CE3618F0011C8AF /* SubClient */,
 				E7B1139B2C14AE9300E96820 /* Extentions */,
-				E759BEEF2C1480C000FC2CCB /* Utils */,
 				E759BED82C1478D500FC2CCB /* Products */,
 				E73F6A662D9C2FBA004FAB43 /* Frameworks */,
 			);
@@ -222,17 +215,8 @@
 				E759BEDA2C1478D500FC2CCB /* AppDelegate.swift */,
 				E759BEDC2C1478D500FC2CCB /* SceneDelegate.swift */,
 				E759BEE32C1478D600FC2CCB /* Assets.xcassets */,
-				E70B0D062D6DFD3A00530DD0 /* Localizable.strings */,
 			);
 			path = "Hai Creator Art";
-			sourceTree = "<group>";
-		};
-		E759BEEF2C1480C000FC2CCB /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				E7B113952C1495E100E96820 /* Sources.swift */,
-			);
-			path = Utils;
 			sourceTree = "<group>";
 		};
 		E75D13E22C6D0CDC002A06B4 /* Home */ = {
@@ -398,6 +382,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E759BEEB2C1478D600FC2CCB /* Build configuration list for PBXNativeTarget "Hai Creator Art" */;
 			buildPhases = (
+				E7CA8C662DA4351100EE363F /* ShellScript */,
 				E759BED32C1478D500FC2CCB /* Sources */,
 				E759BED42C1478D500FC2CCB /* Frameworks */,
 				E759BED52C1478D500FC2CCB /* Resources */,
@@ -405,7 +390,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				E70B0D0D2D6DFDF700530DD0 /* PBXTargetDependency */,
 			);
 			name = "Hai Creator Art";
 			packageProductDependencies = (
@@ -413,7 +397,6 @@
 				E75E7D0C2D50C67A00F293F1 /* ApphudSDK */,
 				E772CA122D93217400BAD6AF /* Disk */,
 				E73F6A592D9AF42D004FAB43 /* Lottie */,
-				E73F6A672D9C2FC7004FAB43 /* RswiftLibrary */,
 				E7CA8C562D9EC5ED00EE363F /* IQKeyboardManagerSwift */,
 			);
 			productName = SportCoach;
@@ -449,7 +432,6 @@
 				E75E7D0B2D50C67A00F293F1 /* XCRemoteSwiftPackageReference "ApphudSDK" */,
 				E772CA112D93217300BAD6AF /* XCRemoteSwiftPackageReference "Disk" */,
 				E73F6A582D9AF42D004FAB43 /* XCRemoteSwiftPackageReference "lottie-spm" */,
-				E73F6A622D9C2EDA004FAB43 /* XCRemoteSwiftPackageReference "R" */,
 				E7CA8C552D9EC5ED00EE363F /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = E759BED82C1478D500FC2CCB /* Products */;
@@ -468,11 +450,30 @@
 			files = (
 				E759BEE42C1478D600FC2CCB /* Assets.xcassets in Resources */,
 				E73F6A5D2D9AF4F3004FAB43 /* LottieAnimation.json in Resources */,
-				E70B0D072D6DFD3A00530DD0 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E7CA8C662DA4351100EE363F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E759BED32C1478D500FC2CCB /* Sources */ = {
@@ -499,7 +500,6 @@
 				E7011C372C1C8AA400B3A4D7 /* UIDevice.swift in Sources */,
 				E772CA2C2D95AA2800BAD6AF /* FilterCell.swift in Sources */,
 				E73FD5592CCAFAD700F7C940 /* SFPrivacyLabel.swift in Sources */,
-				E7B113962C1495E100E96820 /* Sources.swift in Sources */,
 				E7B113BA2C14C35200E96820 /* TabBarController.swift in Sources */,
 				E772CA042D923A6500BAD6AF /* SettingsViewController.swift in Sources */,
 				E73FD5572CCAC2E900F7C940 /* UnrealView.swift in Sources */,
@@ -526,13 +526,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		E70B0D0D2D6DFDF700530DD0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = E70B0D0C2D6DFDF700530DD0 /* RswiftGenerateInternalResources */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		E759BEE92C1478D600FC2CCB /* Debug */ = {
@@ -678,7 +671,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shc.haicraart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -715,7 +708,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shc.haicraart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -752,28 +745,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E70B0CEB2D6DF70700530DD0 /* XCRemoteSwiftPackageReference "R" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mac-cain13/R.swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.8.0;
-			};
-		};
 		E73F6A582D9AF42D004FAB43 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 4.5.1;
-			};
-		};
-		E73F6A622D9C2EDA004FAB43 /* XCRemoteSwiftPackageReference "R" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mac-cain13/R.swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.8.0;
 			};
 		};
 		E75E7D082D50C66B00F293F1 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
@@ -811,20 +788,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E70B0D0C2D6DFDF700530DD0 /* RswiftGenerateInternalResources */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E70B0CEB2D6DF70700530DD0 /* XCRemoteSwiftPackageReference "R" */;
-			productName = "plugin:RswiftGenerateInternalResources";
-		};
 		E73F6A592D9AF42D004FAB43 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E73F6A582D9AF42D004FAB43 /* XCRemoteSwiftPackageReference "lottie-spm" */;
 			productName = Lottie;
-		};
-		E73F6A672D9C2FC7004FAB43 /* RswiftLibrary */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E73F6A622D9C2EDA004FAB43 /* XCRemoteSwiftPackageReference "R" */;
-			productName = RswiftLibrary;
 		};
 		E75E7D092D50C66B00F293F1 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

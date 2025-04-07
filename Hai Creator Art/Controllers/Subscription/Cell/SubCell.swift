@@ -32,7 +32,7 @@ class SubCell: UICollectionViewCell {
     private func setupUI() {
         backgroundColor = .clear
         containerView.isUserInteractionEnabled = false
-        circleImageView.image = R.image.sub_cell_circle()
+        circleImageView.image = UIImage(named: "sub_cell_circle")
         circleImageView.tintColor = UIColor.textInactive
 
         containerView.do { make in
@@ -41,7 +41,7 @@ class SubCell: UICollectionViewCell {
         }
 
         underLabel.do { make in
-            make.text = L.underLabel()
+            make.text = "Auto renewable. Cancel anytime."
             make.font = UIFont.CustomFont.caption2Regular
             make.textColor = UIColor.labelsQuaternary
             make.textAlignment = .left
@@ -110,7 +110,7 @@ class SubCell: UICollectionViewCell {
     func configureAppearance(isSelected: Bool) {
         applyGradientBackground(isSelected: isSelected)
         applyGradientBorder(isSelected: isSelected)
-        circleImageView.image = isSelected ? R.image.sub_cell_circleFill() : R.image.sub_cell_circle()
+        circleImageView.image = isSelected ? UIImage(named: "sub_cell_circleFill") : UIImage(named: "sub_cell_circle")
     }
 
     func configure(name: String, price: String, weeklyPrice: String?, isFirst: Bool) {
